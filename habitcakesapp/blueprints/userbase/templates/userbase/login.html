@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Habitcakes - logowanie{% endblock %}
+
+{% block content %}
+    <h1>Zaloguj się</h1>
+    <p>{{ fail_message }}</p>
+    <form action="{{ url_for('userbase.login') }}" method="POST">
+        <input type="email" name="email" placeholder="Email" required="required">
+        <input type="password" name="password" placeholder="Password" required="required">
+        <input type="submit" value="Log in">
+    </form>
+{% endblock %}
