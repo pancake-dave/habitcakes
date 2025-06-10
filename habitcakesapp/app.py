@@ -11,7 +11,7 @@ bcrypt = Bcrypt()
 def create_app():
     app = Flask(__name__, template_folder='templates')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./habitcakes.db'
-    app.secret_key = 'PLACEHOLDER KEY'
+    app.secret_key = 'PLACEHOLDER KEY' # should be something secure in prod
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -20,6 +20,7 @@ def create_app():
     login_manager.init_app(app)
 
     from habitcakesapp.blueprints.userbase.models import User
+    from habitcakesapp.blueprints.habits.models import Habit
 
     @login_manager.user_loader
     def load_user(uid):
@@ -32,11 +33,12 @@ def create_app():
     # blueprints imports
     from habitcakesapp.blueprints.core.routes import core
     from habitcakesapp.blueprints.userbase.routes import userbase
+    from habitcakesapp.blueprints.habits.routes import habits
     # blueprints registers
     app.register_blueprint(core, url_prefix='/')
     app.register_blueprint(userbase, url_prefix='/userbase')
+    app.register_blueprint(habits, url_prefix='/habit')
 
-    migrate = Migrate(app, db)
+    migrate = Migrate(app, db, render_as_batch=True) # render_as_batch=True mitigates ALEMBIK freaking out
 
     return app
-

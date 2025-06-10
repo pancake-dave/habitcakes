@@ -9,10 +9,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
+    # database relationship
+    habits = db.relationship('Habit', back_populates='user')
 
+    # overriding parent classes methods
     def __repr__(self):
         return f'<User: {self.username}, Email: {self.email}>'
 
     def get_id(self):
         return self.uid
-

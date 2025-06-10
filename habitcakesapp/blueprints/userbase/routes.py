@@ -17,7 +17,7 @@ def create():
         password = request.form.get('password')
         # masking the password to store in the database
         h_password = bcrypt.generate_password_hash(password)
-
+        # adding the user to database
         user = User(username=name, password=h_password, email=email)
         db.session.add(user)
         db.session.commit()
@@ -31,12 +31,11 @@ def login():
     elif request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-
+        # verifying login data
         user = User.query.filter(User.email == email).first()
-
         if bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return render_template('core/dashboard.html', current_user=user.username)
+            return redirect(url_for('core.dashboard'))
         else:
             return render_template('userbase/login.html', fail_message='Błędny adres email lub hasło, spróbuj jeszcze raz')
 
