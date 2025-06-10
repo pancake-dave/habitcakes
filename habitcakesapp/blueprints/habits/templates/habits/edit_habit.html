@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Edytuj Zadanie{% endblock %}
+
+{% block content %}
+<h2>Edytuj zadanie</h2>
+<form method="POST">
+    <label>Tytuł:</label>
+    <input type="text" name="title" value="{{ habit.title }}" required><br>
+
+    <label>Opis:</label>
+    <input type="text" name="description" value="{{ habit.description }}"><br>
+
+    <label>Interwał:</label>
+    <select name="repeat_frequency">
+        <option value="daily" {{ 'selected' if habit.repeat_frequency == 'daily' else '' }}>Daily</option>
+        <option value="weekly" {{ 'selected' if habit.repeat_frequency == 'weekly' else '' }}>Weekly</option>
+        <option value="monthly" {{ 'selected' if habit.repeat_frequency == 'monthly' else '' }}>Monthly</option>
+    </select><br>
+
+    <label>Dni:</label>
+    {% set days = ['mon','tue','wed','thu','fri','sat','sun'] %}
+    {% for day in days %}
+        <input type="checkbox" name="repeat_day" value="{{ day }}"
+            {% if day in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+        <label>{{ day.capitalize() }}</label>
+    {% endfor %}
+    <br>
+
+    <input type="submit" value="Update">
+</form>
+<a href="{{ url_for('core.dashboard') }}">Anuluj</a>
+{% endblock %}

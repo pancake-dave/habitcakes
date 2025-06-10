@@ -30,7 +30,9 @@
     <h3>Lista zadań:</h3>
     <ul>
         {% for habit in habits %}
-        <li>{{ habit }}</li>
+        <li>{{ habit }} <a href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
+        <a href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
+</li>
     {% endfor %}
     </ul>
 {% endblock %}
