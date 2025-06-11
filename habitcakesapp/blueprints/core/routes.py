@@ -22,7 +22,8 @@ def dashboard():
             'repeat_frequency': habit.repeat_frequency,
             'created': habit.created,
             'user_id': habit.user_id,
-            'repeat_days_list': habit.repeat_day.split('.') if habit.repeat_day else []
+            'repeat_days_list': habit.repeat_day.split('.') if habit.repeat_day else [],
+            'is_active': habit.is_active
         }
         processed_habits.append(habit_dict)
 

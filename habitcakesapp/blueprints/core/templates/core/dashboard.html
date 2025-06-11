@@ -2,6 +2,7 @@
 {% block title %}Habitcakes - pulpit{% endblock %}
 
 {% block content %}
+    <main>
     <h1>Tutej będzie kalendosz</h1>
     <p>Witaj {{ current_user }}</p>
     <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br>
@@ -35,4 +36,26 @@
 </li>
     {% endfor %}
     </ul>
+{#________________________________________________________________________#}
+    <section class="habit_display section_padding section">
+        <div class="habit-grid wrapper">
+            {# -- Header row -- #}
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Poniedziałek</p></div>
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Wtorek</p></div>
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Środa</p></div>
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Czwartek</p></div>
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Piątek</p></div>
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Sobota</p></div>
+            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p class="habit-grid__day-text">Niedziela</p></div>
+            {# -- Habit row -- #}
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+            <div class="habit-grid__cell habit-grid__cell--habit"><p class="habit-grid__habit-checkbox"></p></div>
+        </div>
+    </section>
+    </main>
 {% endblock %}

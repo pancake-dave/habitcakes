@@ -22,6 +22,20 @@ def habit():
 
     return redirect(url_for('core.dashboard'))
 
+@habits.route('/habit/toggle_completed/<int:habit_id>', methods=['GET', 'POST'])
+@login_required
+def toggle_completed(habit_id):
+    habit = Habit.query.filter_by(hid=habit_id, user_id=current_user.uid).first_or_404()
+
+    if request.method == 'GET':
+        pass
+    elif request.method == 'POST':
+        user_id = int(current_user.uid)
+        habit_id = habit.hid
+#         not completed yet
+
+
+
 @habits.route('/habit/edit/<int:habit_id>', methods=['GET', 'POST'])
 @login_required
 def edit_habit(habit_id):
@@ -32,6 +46,7 @@ def edit_habit(habit_id):
         habit.description = request.form.get('description')
         habit.repeat_frequency = request.form.get('repeat_frequency')
         habit.repeat_day = ".".join(request.form.getlist('repeat_day'))
+        habit.is_active = 'is_active' in request.form
         # updating habit in database
         db.session.commit()
         return redirect(url_for('core.dashboard'))

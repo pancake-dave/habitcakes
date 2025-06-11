@@ -9,6 +9,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
+    role = db.Column(db.String,default='user', nullable=False)
     # database relationship
     habits = db.relationship('Habit', back_populates='user')
 
