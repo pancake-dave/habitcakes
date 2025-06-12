@@ -26,7 +26,8 @@ def dashboard():
             'created': habit.created,
             'user_id': habit.user_id,
             'repeat_days_list': habit.repeat_day.split('.') if habit.repeat_day else [],
-            'is_active': habit.is_active
+            'is_active': habit.is_active,
+            'repeat_month_day': habit.repeat_month_day
         }
         processed_habits.append(habit_dict)
 
@@ -48,6 +49,7 @@ def api_habits():
             'repeat_day': habit.repeat_day,
             'created': habit.created.isoformat(),
             'is_active': habit.is_active,
+            'repeat_month_day': habit.repeat_month_day
         })
     #sending completion data
     today = date.today()

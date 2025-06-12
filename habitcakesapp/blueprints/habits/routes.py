@@ -16,8 +16,9 @@ def habit():
     repeat_frequency = request.form.get('repeat_frequency')
     repeat_day = ".".join(request.form.getlist('repeat_day'))
     user_id = int(current_user.uid)
+    repeat_month_day = int(request.form.get('repeat_month_day'))
     # adding new habit to database
-    habit = Habit(title=title, description=description, repeat_frequency=repeat_frequency, repeat_day=repeat_day, user_id=user_id)
+    habit = Habit(title=title, description=description, repeat_frequency=repeat_frequency, repeat_day=repeat_day, user_id=user_id, repeat_month_day=repeat_month_day)
     db.session.add(habit)
     db.session.commit()
 
@@ -60,6 +61,7 @@ def edit_habit(habit_id):
         habit.repeat_frequency = request.form.get('repeat_frequency')
         habit.repeat_day = ".".join(request.form.getlist('repeat_day'))
         habit.is_active = 'is_active' in request.form
+        habit.repeat_month_day = int(request.form.get('repeat_month_day'))
         # updating habit in database
         db.session.commit()
         return redirect(url_for('core.dashboard'))

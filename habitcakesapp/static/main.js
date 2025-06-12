@@ -45,34 +45,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 const row = document.createElement('div');
                 row.className = 'habit-grid__row';
 
-                // Parse repeat_day
                 const repeatDays = habit.repeat_day ? habit.repeat_day.split('.') : [];
+                const createdDate = new Date(habit.created); // For monthly fallback
 
-                // Habit name
                 row.innerHTML = `<div class="habit-grid__cell habit-grid__cell--habit"><p>${habit.title}</p></div>`;
 
-                // Day checkboxes/cells
                 weekDates.forEach(date => {
                     const key = `${habit.hid}|${date}`;
                     const completed = completions[key];
-                    const jsDay = new Date(date).getDay(); // 0=Sunday, 1=Monday, etc.
-                    // Mapping JS days to repeatDay codes
+                    const jsDay = new Date(date).getDay();
                     const dayCodes = ['sun','mon','tue','wed','thu','fri','sat'];
                     const dayCode = dayCodes[jsDay];
 
-                    // Check if this day is in habit.repeat_day
-                    const canComplete = repeatDays.includes(dayCode);
+        // Enhanced logic for repeat_frequency with monthly fallback
+        let canComplete = false;
+        if (habit.repeat_frequency === "daily") {
+            canComplete = true;
+        } else if (habit.repeat_frequency === "weekly") {
+            canComplete = repeatDays.includes(dayCode);
+        } else if (habit.repeat_frequency === "monthly") {
+            // Use repeat_month_day if present, otherwise default to created date
+            const desiredDay = habit.repeat_month_day || createdDate.getDate();
+            const dayInMonth = new Date(date).getDate();
+            const lastDay = new Date(new Date(date).getFullYear(), new Date(date).getMonth() + 1, 0).getDate();
+            const dueDay = Math.min(desiredDay, lastDay);
+            canComplete = (dayInMonth === dueDay);
+        }
 
-                    row.innerHTML += `
-                        <div class="habit-grid__cell habit-grid__cell--habit ${canComplete ? 'can-complete' : ''}">
-                            <p class="habit-grid__habit-checkbox">${completed ? '✔️' : ''}</p>
-                        </div>
-                    `;
-                });
+        row.innerHTML += `
+            <div class="habit-grid__cell habit-grid__cell--habit ${canComplete ? 'can-complete' : ''}">
+                <p class="habit-grid__habit-checkbox">${completed ? '✔️' : ''}</p>
+            </div>
+        `;
+    });
 
-                row.innerHTML += `<div class="habit-grid__cell habit-grid__cell--habit"><p>-</p></div>`;
-                habitGrid.appendChild(row);
-            });
+        row.innerHTML += `<div class="habit-grid__cell habit-grid__cell--habit"><p>-</p></div>`;
+        habitGrid.appendChild(row);
+    });
         });
     // Helper functions
     function getCurrentWeekDates() {

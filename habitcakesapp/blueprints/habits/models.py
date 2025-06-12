@@ -14,6 +14,7 @@ class Habit(db.Model):
     repeat_day = db.Column(db.String, nullable=True)
     created = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
+    repeat_month_day = db.Column(db.Integer,nullable=True)
     # database relationship
     user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False, index=True)
     user = db.relationship('User', back_populates='habits')
