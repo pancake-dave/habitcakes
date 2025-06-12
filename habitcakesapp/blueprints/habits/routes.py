@@ -1,9 +1,10 @@
 # modules imports
-from flask import render_template, redirect, request, Blueprint, url_for
-from flask_login import login_user, logout_user, current_user, login_required
+from flask import render_template, redirect, request, Blueprint, url_for, jsonify
+from flask_login import current_user, login_required
+from datetime import date
 # app imports
-from habitcakesapp.blueprints.habits.models import Habit
-from habitcakesapp.app import db, bcrypt
+from habitcakesapp.blueprints.habits.models import Habit, HabitCompletion
+from habitcakesapp.app import db
 
 habits = Blueprint('habits', __name__, template_folder='templates')
 
@@ -22,19 +23,31 @@ def habit():
 
     return redirect(url_for('core.dashboard'))
 
-@habits.route('/habit/toggle_completed/<int:habit_id>', methods=['GET', 'POST'])
+@habits.route('/toggle_completed', methods=['POST'])
 @login_required
-def toggle_completed(habit_id):
-    habit = Habit.query.filter_by(hid=habit_id, user_id=current_user.uid).first_or_404()
-
-    if request.method == 'GET':
-        pass
-    elif request.method == 'POST':
-        user_id = int(current_user.uid)
-        habit_id = habit.hid
-#         not completed yet
-
-
+def toggle_completed():
+    data = request.get_json()
+    habit_id = data['habit_id']
+    target_date = date.fromisoformat(data['date'])
+    # trying to find the habit in the 'habit_completion' table
+    hc = HabitCompletion.query.filter_by(
+        user_id=current_user.uid,
+        habit_id=habit_id,
+        date=target_date
+    ).first()
+    # toggling the is_active (or creating a new row in 'habit_completion')
+    if hc:
+        hc.completed = not hc.completed
+    else:
+        hc = HabitCompletion(
+            user_id=current_user.uid,
+            habit_id=habit_id,
+            date=target_date,
+            completed=True
+        )
+        db.session.add(hc)
+    db.session.commit()
+    return jsonify({'completed': hc.completed})
 
 @habits.route('/habit/edit/<int:habit_id>', methods=['GET', 'POST'])
 @login_required
