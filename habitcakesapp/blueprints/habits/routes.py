@@ -35,7 +35,7 @@ def toggle_completed():
         habit_id=habit_id,
         date=target_date
     ).first()
-    # toggling the is_active (or creating a new row in 'habit_completion')
+    # toggling the completed (or creating a new row in 'habit_completion')
     if hc:
         hc.completed = not hc.completed
     else:
