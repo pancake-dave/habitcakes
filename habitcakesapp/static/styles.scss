@@ -1,0 +1,58 @@
+// Variables
+$main-color: #fff;
+$secondary-color: #000;
+$bg-color: #888;
+
+
+// General
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  //scroll-padding-top: 6rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $bg-color;
+  min-height: 100vh;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.section-padding {
+  padding: 2rem 2rem;
+}
+
+// Dashboard
+.habit-grid {
+  &__row {
+    display: grid;
+    grid-template-columns: 2fr repeat(7, 1fr) 1fr;
+  }
+  &__cell {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: center;
+    &--header {
+
+    }
+  }
+}
+
+.can-complete {
+  background-color: green;
+}
+
+
+
