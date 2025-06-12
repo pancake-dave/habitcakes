@@ -2,6 +2,7 @@
 from flask import render_template, redirect, request, Blueprint, url_for, jsonify
 from flask_login import current_user, login_required
 from datetime import date
+from sqlalchemy.exc import IntegrityError
 # app imports
 from habitcakesapp.blueprints.habits.models import Habit, HabitCompletion
 from habitcakesapp.app import db
@@ -16,7 +17,9 @@ def habit():
     repeat_frequency = request.form.get('repeat_frequency')
     repeat_day = ".".join(request.form.getlist('repeat_day'))
     user_id = int(current_user.uid)
-    repeat_month_day = int(request.form.get('repeat_month_day'))
+    repeat_month_day = request.form.get('repeat_month_day')
+    repeat_month_day = int(repeat_month_day) if repeat_month_day else None
+
     # adding new habit to database
     habit = Habit(title=title, description=description, repeat_frequency=repeat_frequency, repeat_day=repeat_day, user_id=user_id, repeat_month_day=repeat_month_day)
     db.session.add(habit)
@@ -24,30 +27,74 @@ def habit():
 
     return redirect(url_for('core.dashboard'))
 
-@habits.route('/toggle_completed', methods=['POST'])
+# @habits.route('/habit/toggle_completed', methods=['POST'])
+# @login_required
+# def toggle_completed():
+#     data = request.get_json()
+#     habit_id = data['habit_id']
+#     target_date = date.fromisoformat(data['date'])
+#     # trying to find the habit in the 'habit_completion' table
+#     hc = HabitCompletion.query.filter_by(
+#         user_id=current_user.uid,
+#         habit_id=habit_id,
+#         date=target_date
+#     ).first()
+#     # toggling the completed (or creating a new row in 'habit_completion')
+#     if hc:
+#         hc.completed = not hc.completed
+#     else:
+#         hc = HabitCompletion(
+#             user_id=current_user.uid,
+#             habit_id=habit_id,
+#             date=target_date,
+#             completed=True
+#         )
+#         db.session.add(hc)
+#     db.session.commit()
+#     return jsonify({'completed': hc.completed})
+
+@habits.route('/habit/toggle_completed', methods=['POST'])
 @login_required
 def toggle_completed():
     data = request.get_json()
-    habit_id = data['habit_id']
-    target_date = date.fromisoformat(data['date'])
-    # trying to find the habit in the 'habit_completion' table
+    habit_id = int(data.get('habit_id'))
+    target_date = date.fromisoformat(data.get('date'))
+
     hc = HabitCompletion.query.filter_by(
         user_id=current_user.uid,
         habit_id=habit_id,
         date=target_date
     ).first()
-    # toggling the completed (or creating a new row in 'habit_completion')
     if hc:
         hc.completed = not hc.completed
-    else:
-        hc = HabitCompletion(
+        db.session.commit()
+        return jsonify({'completed': hc.completed})
+
+    # Not found, try insert
+    hc = HabitCompletion(
+        user_id=current_user.uid,
+        habit_id=habit_id,
+        date=target_date,
+        completed=True
+    )
+    db.session.add(hc)
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        # Try again, another process may have inserted concurrently
+        hc = HabitCompletion.query.filter_by(
             user_id=current_user.uid,
             habit_id=habit_id,
-            date=target_date,
-            completed=True
-        )
-        db.session.add(hc)
-    db.session.commit()
+            date=target_date
+        ).first()
+        if hc:
+            hc.completed = not hc.completed
+            db.session.commit()
+            return jsonify({'completed': hc.completed})
+        else:
+            return jsonify({'error': 'Unexpected error'}), 500
+
     return jsonify({'completed': hc.completed})
 
 @habits.route('/habit/edit/<int:habit_id>', methods=['GET', 'POST'])
@@ -61,7 +108,8 @@ def edit_habit(habit_id):
         habit.repeat_frequency = request.form.get('repeat_frequency')
         habit.repeat_day = ".".join(request.form.getlist('repeat_day'))
         habit.is_active = 'is_active' in request.form
-        habit.repeat_month_day = int(request.form.get('repeat_month_day'))
+        repeat_month_day = request.form.get('repeat_month_day')
+        habit.repeat_month_day = int(repeat_month_day) if repeat_month_day else None
         # updating habit in database
         db.session.commit()
         return redirect(url_for('core.dashboard'))
