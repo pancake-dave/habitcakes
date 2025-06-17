@@ -144,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.completed) {
                 cell.querySelector('.habit-grid__habit-checkbox').classList.add('fa-solid')
                 cell.querySelector('.habit-grid__habit-checkbox').classList.add('fa-check')
-
                 cell.classList.add('completed-bg')
             } else {
                 cell.querySelector('.habit-grid__habit-checkbox').classList.remove('fa-solid')

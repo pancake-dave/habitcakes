@@ -1,13 +1,20 @@
 {% extends "base.html" %}
-{% block title %}Create new user{% endblock %}
+{% block title %}Habitcakess - załóż nowe konto{% endblock %}
 
 {% block content %}
-    <h1>Załóż nowe konto</h1>
-    <form action="{{ url_for('userbase.create') }}" method="POST">
-        <input type="text" name="name" placeholder="Name" required="required">
-        <input type="email" name="email" placeholder="Email" required="required">
-        <input type="password" name="password" placeholder="Password" required="required">
-        <input type="submit" value="Create">
-    </form>
-    <a href="{{ url_for('userbase.login') }}">Lub przejdź do strony logowania</a>
+    <section class="section-forms">
+    <div class="signup__box form__box">
+        <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
+        <h1 class="signup__header form__header">Załóż nowe konto</h1>
+        <form class="signup__form" action="{{ url_for('userbase.create') }}" method="POST">
+            <input class="signup__form--input" type="text" name="name" placeholder="Nazwa użytkownika" required="required">
+            <input class="signup__form--input" type="email" name="email" placeholder="Adres e-mail" required="required">
+            <input class="signup__form--input" type="password" name="password" placeholder="Hasło" required="required">
+            <input class="signup__form--button" type="submit" value="Załóż konto">
+        </form>
+        <a class="signup__link" href="{{ url_for('userbase.login') }}">
+                Lub przejdź do strony logowania
+        </a>
+    </div>
+    </section>
 {% endblock %}

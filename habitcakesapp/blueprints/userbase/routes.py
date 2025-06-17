@@ -37,9 +37,9 @@ def login():
             login_user(user)
             return redirect(url_for('core.dashboard'))
         else:
-            return render_template('userbase/login.html', fail_message='Błędny adres email lub hasło, spróbuj jeszcze raz')
+            return render_template('userbase/login.html', fail_message='Błędny adres email lub hasło, spróbuj ponownie')
 
 @userbase.route('/logout')
 def logout():
     logout_user()
-    return render_template('core/index.html', message='Poprawne wylogowanie')
+    return render_template('core/index.html', message='Nastąpiło poprawne wylogowanie')

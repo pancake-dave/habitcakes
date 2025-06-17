@@ -2,11 +2,19 @@
 {% block title %}Habitcakes - logowanie{% endblock %}
 
 {% block content %}
-    <h1>Zaloguj się</h1>
-    <p>{{ fail_message }}</p>
-    <form action="{{ url_for('userbase.login') }}" method="POST">
-        <input type="email" name="email" placeholder="Email" required="required">
-        <input type="password" name="password" placeholder="Password" required="required">
-        <input type="submit" value="Log in">
-    </form>
+    <section class="section-forms">
+        <div class="signup__box form__box">
+            <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
+            <h1 class="signup__header form__header">Zaloguj się</h1>
+            <p class="signup__fail-message">{{ fail_message }}</p>
+            <form class="signup__form" action="{{ url_for('userbase.login') }}" method="POST">
+                <input class="signup__form--input" type="email" name="email" placeholder="Email" required="required">
+                <input class="signup__form--input" type="password" name="password" placeholder="Password" required="required">
+                <input class="signup__form--button" type="submit" value="Zaloguj">
+            </form>
+            <a class="signup__link" href="{{ url_for('userbase.create') }}">
+                Lub utwórz nowe konto
+            </a>
+        </div>
+    </section>
 {% endblock %}

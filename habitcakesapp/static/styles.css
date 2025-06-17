@@ -36,6 +36,120 @@ body {
   padding: 2rem 2rem;
 }
 
+.section-forms {
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 600px;
+  height: 600px;
+  background-color: #DCD7C9;
+  border: 1px solid #DCD7C9;
+  border-radius: 20px;
+  color: #2C3639;
+}
+.form__logo {
+  width: 300px;
+  padding: 40px;
+}
+.form__header {
+  cursor: default;
+  padding-bottom: 0.8rem;
+  font-size: 2.8rem;
+}
+
+.index__message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  background-color: #DCD7C9;
+}
+.index__message--text {
+  color: #2C3639;
+  font-size: 1.6rem;
+}
+.index__description {
+  cursor: default;
+  font-size: 1.4rem;
+  padding-bottom: 1rem;
+}
+.index__link {
+  text-decoration: none;
+  padding-bottom: 0.8rem;
+}
+.index__link--box {
+  border: 2px solid #2C3639;
+  border-radius: 5px;
+  background-color: #DCD7C9;
+}
+.index__link--box:hover .index__link--text {
+  background-color: #2C3639;
+  color: #DCD7C9;
+}
+.index__link--text {
+  background-color: transparent;
+  color: #2C3639;
+  padding: 1rem 2rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.signup__box {
+  height: auto;
+}
+.signup__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.signup__form--input {
+  width: 400px;
+  font-size: 1.4rem;
+  padding: 0.4rem;
+  margin-bottom: 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+.signup__form--input:focus-visible {
+  outline: 2px solid #A27B5C;
+  border: 1px solid transparent;
+}
+.signup__form--button {
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #2C3639;
+  border-radius: 5px;
+  background-color: #DCD7C9;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.signup__form--button:hover {
+  background-color: #2C3639;
+  color: #DCD7C9;
+}
+.signup__link {
+  text-decoration: none;
+  color: #2C3639;
+  padding-top: 1rem;
+  padding-bottom: 40px;
+}
+.signup__fail-message {
+  font-size: 1rem;
+  font-weight: 500;
+  padding-bottom: 0.2rem;
+}
+
 .habit-grid__row {
   display: grid;
   grid-template-columns: 2fr repeat(7, 1fr) 1fr;

@@ -47,6 +47,130 @@ body {
   padding: 2rem 2rem;
 }
 
+// Forms pages universal styling
+.section-forms {
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  &__box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 600px;
+    background-color: $contrast-secondary;
+    border: 1px solid $contrast-secondary;
+    border-radius: 20px;
+    color: $main-color;
+  }
+  &__logo {
+    width: 300px;
+    padding: 40px;
+  }
+  &__header {
+    cursor: default;
+    padding-bottom: .8rem;
+    font-size: 2.8rem;
+  }
+}
+
+// Index page
+.index {
+  &__message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    background-color: $contrast-secondary;
+    &--text {
+      color: $main-color;
+      font-size: 1.6rem;
+    }
+  }
+  &__description {
+    cursor: default;
+    font-size: 1.4rem;
+    padding-bottom: 1rem;
+  }
+  &__link {
+    text-decoration: none;
+    padding-bottom: .8rem;
+    &--box {
+      border: 2px solid $main-color;
+      border-radius: 5px;
+      background-color: $contrast-secondary;
+      &:hover .index__link--text {
+        background-color: $main-color;
+        color: $contrast-secondary;
+      }
+    }
+    &--text {
+      background-color: transparent;
+      color: $main-color;
+      padding: 1rem 2rem;
+      transition: background-color .2s, color .2s;
+    }
+  }
+}
+
+
+// Signup and login page
+.signup {
+  &__box {
+    height: auto;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    &--input {
+      width: 400px;
+      font-size: 1.4rem;
+      padding: .4rem;
+      margin-bottom: .6rem;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      &:focus-visible {
+        outline: 2px solid $contrast-main;
+        border: 1px solid transparent;
+      }
+    }
+    &--button {
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: 2px solid $main-color;
+      border-radius: 5px;
+      background-color: $contrast-secondary;
+      cursor: pointer;
+      transition: background-color .2s, color .2s;
+      &:hover {
+        background-color: $main-color;
+        color: $contrast-secondary;
+      }
+    }
+  }
+  &__link {
+    text-decoration: none;
+    color: $main-color;
+    padding-top: 1rem;
+    padding-bottom: 40px;
+  }
+  &__fail-message {
+    font-size: 1rem;
+    font-weight: 500;
+    padding-bottom: .2rem;
+  }
+}
+
 // Dashboard
 .habit-grid {
   &__row {

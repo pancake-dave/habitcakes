@@ -1,9 +1,35 @@
-{% extends "base.html" %}
-{% block title %}Habitcakes - śledź swoje postępy!{% endblock %}
-
-{% block content %}
-    <h1>Home page</h1>
-    <p>{{ message }}</p>
-    <a href="{{ url_for('userbase.create') }}">Załóż nowe konto</a><br>
-    <a href="{{ url_for('userbase.login') }}">Zaloguj się na istniejące konto</a>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Habitcakes - śledź swoje postępy!</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="index__message"><p class="index__message--text">{{ message }}</p></div>
+        <section class="section-forms">
+        <div class="index__box form__box">
+            <img class="index__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
+            <h1 class="index__header form__header">Witaj w Habitcakes!</h1>
+            <p class="index__description">Codzienna porcja dobrych nawyków</p>
+            <a class="index__link" href="{{ url_for('userbase.create') }}">
+                <div class="index__link--box">
+                    <p class="index__link--text">Załóż nowe konto</p>
+                </div>
+            </a>
+            <a class="index__link" href="{{ url_for('userbase.login') }}">
+                <div class="index__link--box">
+                    <p class="index__link--text">Zaloguj się</p>
+                </div>
+            </a>
+        </div>
+        </section>
+        <a href=""></a>
+    </main>
+</body>
+</html>
