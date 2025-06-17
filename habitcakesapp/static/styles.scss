@@ -1,14 +1,25 @@
 // Variables
-$main-color: #fff;
-$secondary-color: #000;
-$bg-color: #888;
+$main-color: #2C3639;
+$secondary-color: #3F4E4F;
+$contrast-main: #A27B5C;
+$contrast-secondary: #DCD7C9;
+$table-bg: #000;
+$not-completed-yet: #888;
 
+// Typography cheatsheet
+.roboto {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100 - 900;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
 
 // General
 html {
   box-sizing: border-box;
   scroll-behavior: smooth;
-  //scroll-padding-top: 6rem;
 }
 
 *,
@@ -20,14 +31,16 @@ html {
 }
 
 body {
-  background-color: $bg-color;
+  font-family: "Roboto", sans-serif;
+  color: $contrast-secondary;
+  background-color: $main-color;
   min-height: 100vh;
 }
 
 .wrapper {
   margin: 0 auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 .section-padding {
@@ -41,18 +54,48 @@ body {
     grid-template-columns: 2fr repeat(7, 1fr) 1fr;
   }
   &__cell {
-    border: 1px solid #ddd;
+
     padding: 0.5rem;
     text-align: center;
-    &--header {
 
+    p {
+      padding-top: .2rem;
+      padding-bottom: .2rem;
+    }
+    &--month {
+      font-weight: 300;
+    }
+    &--day {
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+    &--dayname {
+      font-size: 1.2rem;
+    }
+    &--edge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    &--cell {
+      background-color: $secondary-color;
+      border: 1px solid $main-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }
 
 .can-complete {
-  background-color: green;
+  background-color: $not-completed-yet;
+  cursor: pointer;
 }
 
+.completed-bg {
+  background-color: $contrast-main;
+}
 
 

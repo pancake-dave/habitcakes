@@ -1,3 +1,11 @@
+.roboto {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: -800;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
 html {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -12,14 +20,16 @@ html {
 }
 
 body {
-  background-color: #888;
+  font-family: "Roboto", sans-serif;
+  color: #DCD7C9;
+  background-color: #2C3639;
   min-height: 100vh;
 }
 
 .wrapper {
   margin: 0 auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 .section-padding {
@@ -31,12 +41,45 @@ body {
   grid-template-columns: 2fr repeat(7, 1fr) 1fr;
 }
 .habit-grid__cell {
-  border: 1px solid #ddd;
   padding: 0.5rem;
   text-align: center;
 }
+.habit-grid__cell p {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+}
+.habit-grid__cell--month {
+  font-weight: 300;
+}
+.habit-grid__cell--day {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+.habit-grid__cell--dayname {
+  font-size: 1.2rem;
+}
+.habit-grid__cell--edge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.habit-grid__cell--cell {
+  background-color: #3F4E4F;
+  border: 1px solid #2C3639;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .can-complete {
-  background-color: green;
+  background-color: #888;
+  cursor: pointer;
+}
+
+.completed-bg {
+  background-color: #A27B5C;
 }
 
 /*# sourceMappingURL=styles.css.map */

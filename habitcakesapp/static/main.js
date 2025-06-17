@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return days[(d.getDay() + 6) % 7];
     }
 
+    function formatPolishMonth(dateStr) {
+        const months = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+        const d = new Date(dateStr);
+        return months[d.getMonth()];
+    }
+
     // Render habit grid
     function renderHabitGrid(data) {
         habits = data.habits;
@@ -34,11 +40,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const headerRow = document.createElement('div');
         headerRow.className = 'habit-grid__row';
         headerRow.innerHTML = `
-            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p>Zadanie</p></div>
-            ${weekDates.map(date =>
-                `<div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p>${formatPolishDay(date)}</p></div>`
-            ).join('')}
-            <div class="habit-grid__cell habit-grid__cell--day habit-grid__cell--header"><p>Progres</p></div>
+            <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--header"><p>Nawyk</p></div>
+            
+            ${weekDates.map(date => {
+                const d = new Date(date);
+                const dayName = formatPolishDay(date);
+                const month_2 = d.getMonth() + 1; // months are zero-based
+                const month = formatPolishMonth(date)
+                const day = d.getDate();
+                return `<div class="habit-grid__cell habit-grid__cell--header"><p class="habit-grid__cell--month">${month}</p><p class="habit-grid__cell--day">${day}</p><p class="habit-grid__cell--dayname">${dayName}</p></div>`;
+                                    }).join('')}
+            
+            <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--header"><p>Progres</p></div>
         `;
         habitGrid.appendChild(headerRow);
 
@@ -68,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const repeatDays = habit.repeat_day ? habit.repeat_day.split('.') : [];
             const createdDate = new Date(habit.created);
 
-            row.innerHTML = `<div class="habit-grid__cell habit-grid__cell--habit"><p>${habit.title}</p></div>`;
+            row.innerHTML = `<div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--habit"><p>${habit.title}</p></div>`;
 
             weekDates.forEach((date, dateIndex) => {
                 const key = `${habit.hid}|${date}`;
@@ -94,10 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add data attributes for easy access in event handler
                 row.innerHTML += `
                     <div 
-                        class="habit-grid__cell habit-grid__cell--habit${canComplete ? ' can-complete' : ''}" 
+                        class="habit-grid__cell habit-grid__cell--cell habit-grid__cell--habit${canComplete ? ' can-complete' : ''} ${completed ? 'completed-bg' : ''}" 
                         data-habit-index="${habitIndex}" 
                         data-date-index="${dateIndex}">
-                        <p class="habit-grid__habit-checkbox">${completed ? '✔️' : ''}</p>
+                        <i class="habit-grid__habit-checkbox ${completed ? 'fa-solid fa-check' : ''}"></i>
                     </div>
                 `;
             });
@@ -128,8 +141,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            // Toggle checkmark
-            cell.querySelector('.habit-grid__habit-checkbox').textContent = data.completed ? '✔️' : '';
+            if (data.completed) {
+                cell.querySelector('.habit-grid__habit-checkbox').classList.add('fa-solid')
+                cell.querySelector('.habit-grid__habit-checkbox').classList.add('fa-check')
+
+                cell.classList.add('completed-bg')
+            } else {
+                cell.querySelector('.habit-grid__habit-checkbox').classList.remove('fa-solid')
+                cell.querySelector('.habit-grid__habit-checkbox').classList.remove('fa-check')
+                cell.classList.remove('completed-bg')
+            }
         });
     });
 
