@@ -18,7 +18,7 @@ class Habit(db.Model):
     # database relationship
     user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False, index=True)
     user = db.relationship('User', back_populates='habits')
-
+    completions = db.relationship('HabitCompletion', backref='habit', cascade="all, delete-orphan")
     # overriding parent class methods
     def __repr__(self):
         return f'<Habit: {self.title}>'
@@ -30,7 +30,7 @@ class HabitCompletion(db.Model):
     __tablename__ = 'habit_completion'
     hcid = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False)
-    habit_id = db.Column(db.Integer, db.ForeignKey('habits.hid'), nullable=False)
+    habit_id = db.Column(db.Integer, db.ForeignKey('habits.hid', ondelete='CASCADE'), nullable=False)
     date = db.Column(db.Date, nullable=False)
     completed = db.Column(db.Boolean, default=False, nullable=False)
     # unique constrains for avoiding duplicates

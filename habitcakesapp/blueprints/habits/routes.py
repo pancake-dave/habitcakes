@@ -21,37 +21,18 @@ def habit():
     repeat_month_day = int(repeat_month_day) if repeat_month_day else None
 
     # adding new habit to database
-    habit = Habit(title=title, description=description, repeat_frequency=repeat_frequency, repeat_day=repeat_day, user_id=user_id, repeat_month_day=repeat_month_day)
+    habit = Habit(
+        title=title,
+        description=description,
+        repeat_frequency=repeat_frequency,
+        repeat_day=repeat_day,
+        user_id=user_id,
+        repeat_month_day=repeat_month_day
+    )
     db.session.add(habit)
     db.session.commit()
 
     return redirect(url_for('core.dashboard'))
-
-# @habits.route('/habit/toggle_completed', methods=['POST'])
-# @login_required
-# def toggle_completed():
-#     data = request.get_json()
-#     habit_id = data['habit_id']
-#     target_date = date.fromisoformat(data['date'])
-#     # trying to find the habit in the 'habit_completion' table
-#     hc = HabitCompletion.query.filter_by(
-#         user_id=current_user.uid,
-#         habit_id=habit_id,
-#         date=target_date
-#     ).first()
-#     # toggling the completed (or creating a new row in 'habit_completion')
-#     if hc:
-#         hc.completed = not hc.completed
-#     else:
-#         hc = HabitCompletion(
-#             user_id=current_user.uid,
-#             habit_id=habit_id,
-#             date=target_date,
-#             completed=True
-#         )
-#         db.session.add(hc)
-#     db.session.commit()
-#     return jsonify({'completed': hc.completed})
 
 @habits.route('/habit/toggle_completed', methods=['POST'])
 @login_required
@@ -70,7 +51,7 @@ def toggle_completed():
         db.session.commit()
         return jsonify({'completed': hc.completed})
 
-    # Not found, try insert
+    # if not found, trying to insert into database
     hc = HabitCompletion(
         user_id=current_user.uid,
         habit_id=habit_id,
@@ -82,7 +63,7 @@ def toggle_completed():
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
-        # Try again, another process may have inserted concurrently
+        # trying again, another process may have inserted concurrently
         hc = HabitCompletion.query.filter_by(
             user_id=current_user.uid,
             habit_id=habit_id,
