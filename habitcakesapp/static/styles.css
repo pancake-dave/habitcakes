@@ -337,6 +337,7 @@ body {
   font-size: 1.2rem;
 }
 .habit-grid__cell--edge {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;

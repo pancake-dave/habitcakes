@@ -3,18 +3,18 @@
 
 {% block content %}
     <main>
-    <h2>DEBUG</h2>
-    <p>Witaj {{ current_user }}</p>
-    <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br>
-    <h3>Lista zadań:</h3>
-    <ul>
-        {% for habit in habits %}
-        <li>{{ habit }} <a href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
-        <a href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
-</li>
-    {% endfor %}
-    </ul>
-    <h2>DEBUG END</h2><br><br>
+{#    <h2>DEBUG</h2>#}
+{#    <p>Witaj {{ current_user }}</p>#}
+{#    <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br>#}
+{#    <h3>Lista zadań:</h3>#}
+{#    <ul>#}
+{#        {% for habit in habits %}#}
+{#        <li>{{ habit }} <a href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>#}
+{#        <a href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>#}
+{#</li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
+{#    <h2>DEBUG END</h2><br><br>#}
 {#________________________________________________________________________#}
     <section class="habit_display section_padding section">
         <div class="habit-form__background" id="add-habit-background"></div>
