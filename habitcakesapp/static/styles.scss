@@ -180,7 +180,7 @@ body {
     height: auto;
     width: auto;
     padding: 4rem;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -192,7 +192,7 @@ body {
     display: none;
     width: 100svw;
     height: 100svh;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -320,7 +320,7 @@ body {
   &__add-button {
     font-size: 1.2rem;
     color: $contrast-secondary;
-    padding: .8rem 1.6rem;
+    padding: .6rem 2rem;
     margin: .4rem;
     border: 2px solid $contrast-secondary;
     border-radius: 5px;
@@ -332,6 +332,13 @@ body {
         background-color: $contrast-secondary;
         color: $main-color;
       }
+  }
+
+  &__delete-button {
+    position: absolute;
+    left: 1rem;
+    font-size: 1.4rem;
+    cursor: pointer;
   }
   &__row {
     display: grid;
@@ -357,6 +364,7 @@ body {
     }
     &--edge {
       display: flex;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
@@ -376,6 +384,9 @@ body {
       align-items: center;
       justify-content: center;
     }
+    //&--habit {
+    //
+    //}
   }
 }
 
@@ -383,6 +394,7 @@ body {
   background-color: $not-completed-yet;
   background-color: $secondary-color;
   cursor: pointer;
+  border-right: 2px solid $secondary-color;
   transition: background-color .2s;
   &:hover {
     background-color: $contrast-main;
@@ -391,6 +403,7 @@ body {
 
 .completed-bg {
   background-color: $contrast-main;
+  border-right: 2px solid $secondary-color;
 }
 
 

@@ -156,7 +156,7 @@ body {
   height: auto;
   width: auto;
   padding: 4rem;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -168,7 +168,7 @@ body {
   display: none;
   width: 100svw;
   height: 100svh;
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -295,7 +295,7 @@ body {
 .habit-grid__add-button {
   font-size: 1.2rem;
   color: #DCD7C9;
-  padding: 0.8rem 1.6rem;
+  padding: 0.6rem 2rem;
   margin: 0.4rem;
   border: 2px solid #DCD7C9;
   border-radius: 5px;
@@ -307,6 +307,12 @@ body {
   border: 2px solid #3F4E4F;
   background-color: #DCD7C9;
   color: #2C3639;
+}
+.habit-grid__delete-button {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.4rem;
+  cursor: pointer;
 }
 .habit-grid__row {
   display: grid;
@@ -332,6 +338,7 @@ body {
 }
 .habit-grid__cell--edge {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
@@ -356,6 +363,7 @@ body {
   background-color: #888;
   background-color: #3F4E4F;
   cursor: pointer;
+  border-right: 2px solid #3F4E4F;
   transition: background-color 0.2s;
 }
 .can-complete:hover {
@@ -364,6 +372,7 @@ body {
 
 .completed-bg {
   background-color: #A27B5C;
+  border-right: 2px solid #3F4E4F;
 }
 
 /*# sourceMappingURL=styles.css.map */
