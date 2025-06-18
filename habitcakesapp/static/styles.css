@@ -150,6 +150,135 @@ body {
   padding-bottom: 0.2rem;
 }
 
+.habit-form__box {
+  display: flex;
+  height: auto;
+  width: auto;
+  padding: 4rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #DCD7C9;
+  color: #2C3639;
+}
+.habit-form__header {
+  font-size: 2rem;
+  padding-bottom: 2rem;
+}
+.habit-form__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.habit-form__input {
+  width: 400px;
+  font-size: 1.4rem;
+  padding: 0.4rem;
+  margin-bottom: 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+.habit-form__input::placeholder {
+  color: #2C3639;
+  font-style: normal;
+  font-size: 1.4rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+}
+.habit-form__input:focus-visible {
+  outline: 2px solid #A27B5C;
+  border: 1px solid transparent;
+}
+.habit-form__input--textarea {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.4rem;
+  min-height: 2.6rem;
+  resize: vertical;
+}
+.habit-form__label {
+  font-size: 1.4rem;
+  padding-bottom: 1rem;
+  padding-top: 0.4rem;
+}
+.habit-form__select {
+  font-size: 1rem;
+  padding: 0.8rem 1.6rem;
+  border: 2px solid #2C3639;
+  border-radius: 5px;
+  background-color: #DCD7C9;
+  cursor: pointer;
+}
+.habit-form__checkboxes {
+  display: none;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.habit-form__weekday {
+  cursor: pointer;
+  margin-left: 1rem;
+  margin-right: 0.2rem;
+}
+.habit-form__weekday-label {
+  cursor: pointer;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 0.1rem 0.2rem;
+  transition: color 0.2s, background-color 0.2s;
+}
+.habit-form__weekday-label:hover {
+  background-color: #3F4E4F;
+  color: #DCD7C9;
+}
+.habit-form__month-day {
+  font-size: 1.2rem;
+  display: none;
+  padding: 1rem;
+}
+.habit-form__month-day--label {
+  padding-right: 0.6rem;
+}
+.habit-form__month-day--input {
+  font-size: 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  text-align: center;
+}
+.habit-form__month-day--input:focus-visible {
+  outline: 2px solid #A27B5C;
+  border: 1px solid transparent;
+}
+
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-arrows {
+  -moz-appearance: textfield;
+}
+
+.visible {
+  display: flex;
+}
+
+.habit-grid__add-button {
+  font-size: 1.2rem;
+  color: #DCD7C9;
+  padding: 0.8rem 1.6rem;
+  margin: 0.4rem;
+  border: 2px solid #DCD7C9;
+  border-radius: 5px;
+  background-color: #2C3639;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border 0.2s;
+}
+.habit-grid__add-button:hover {
+  border: 2px solid #3F4E4F;
+  background-color: #DCD7C9;
+  color: #2C3639;
+}
 .habit-grid__row {
   display: grid;
   grid-template-columns: 2fr repeat(7, 1fr) 1fr;
@@ -157,10 +286,10 @@ body {
 .habit-grid__cell {
   padding: 0.5rem;
   text-align: center;
+  border-bottom: 2px solid #3F4E4F;
 }
-.habit-grid__cell p {
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+.habit-grid__cell--empty {
+  font-size: 1.2rem;
 }
 .habit-grid__cell--month {
   font-weight: 300;
@@ -178,10 +307,17 @@ body {
   justify-content: center;
   font-size: 1.2rem;
   font-weight: 500;
+  border-right: 2px solid #3F4E4F;
+}
+.habit-grid__cell--edge:last-child {
+  border-right: none;
+}
+.habit-grid__cell--edgetext {
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
 }
 .habit-grid__cell--cell {
-  background-color: #3F4E4F;
-  border: 1px solid #2C3639;
+  background-color: #2C3639;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,6 +326,10 @@ body {
 .can-complete {
   background-color: #888;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+.can-complete:hover {
+  background-color: #A27B5C;
 }
 
 .completed-bg {

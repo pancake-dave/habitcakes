@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const headerRow = document.createElement('div');
         headerRow.className = 'habit-grid__row';
         headerRow.innerHTML = `
-            <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--header"><p>Nawyk</p></div>
+            <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--edgehabit habit-grid__cell--header"><p class="habit-grid__cell--edgetext">Nawyk</p></div>
             
             ${weekDates.map(date => {
                 const d = new Date(date);
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const month_2 = d.getMonth() + 1; // months are zero-based
                 const month = formatPolishMonth(date)
                 const day = d.getDate();
-                return `<div class="habit-grid__cell habit-grid__cell--header"><p class="habit-grid__cell--month">${month}</p><p class="habit-grid__cell--day">${day}</p><p class="habit-grid__cell--dayname">${dayName}</p></div>`;
+                return `<div class="habit-grid__cell habit-grid__cell--date habit-grid__cell--header"><p class="habit-grid__cell--month">${month}</p><p class="habit-grid__cell--day">${day}</p><p class="habit-grid__cell--dayname">${dayName}</p></div>`;
                                     }).join('')}
             
-            <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--header"><p>Progres</p></div>
+            <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--header"><p class="habit-grid__cell--edgetext">Progres</p></div>
         `;
         habitGrid.appendChild(headerRow);
 
@@ -60,14 +60,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const emptyRow = document.createElement('div');
             emptyRow.className = 'habit-grid__row';
             emptyRow.innerHTML = `
-                <div class="habit-grid__cell habit-grid__cell--habit" colspan="9" style="grid-column: 1 / span 9;">
-                    <span>Nie masz jeszcze żadnych zadań! Dodaj je tutaj: </span>
-                    <button id="add-habit-btn" type="button">Dodaj zadanie</button>
+                <div class="habit-grid__cell habit-grid__cell--empty habit-grid__cell--habit" colspan="9" style="grid-column: 1 / span 9;">
+                    <span>Nie masz jeszcze żadnych nawyków do śledzenia! </span>
+                    <button class="habit-grid__add-button" id="show-form-btn" type="button">Dodaj je tutaj!</button>
                 </div>
             `;
             habitGrid.appendChild(emptyRow);
 
-            emptyRow.querySelector('#add-habit-btn').addEventListener('click', function() {
+            emptyRow.querySelector('#show-form-btn').addEventListener('click', function() {
                 alert('Tu pojawi się modal z formularzem!');
             });
             return;
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             });
 
-            row.innerHTML += `<div class="habit-grid__cell habit-grid__cell--habit"><p>-</p></div>`;
+            row.innerHTML += `<div class="habit-grid__cell habit-grid__cell--progress  habit-grid__cell--habit"><p>-</p></div>`;
             habitGrid.appendChild(row);
         });
     }
@@ -152,6 +152,39 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Add habit form behaviour handling
+    const select = document.getElementById('repeat_frequency');
+    const checkboxes = document.querySelectorAll('#weekday-checkboxes .habit-form__weekday');
+    const checkboxesBox = document.getElementById('weekday-checkboxes')
+    const monthDaySelect = document.getElementById('month-day-select')
+
+    function updateCheckboxes() {
+        if (select.value === 'weekly') {
+            checkboxes.forEach(cb => cb.disabled = false);
+            checkboxesBox.classList.add('visible')
+            monthDaySelect.classList.remove('visible')
+        } else if (select.value === 'monthly') {
+            checkboxes.forEach(cb => {
+                cb.disabled = true;
+                cb.checked = false;
+            });
+            checkboxesBox.classList.remove('visible')
+            monthDaySelect.classList.add('visible')
+        } else if (select.value === 'daily') {
+            checkboxes.forEach(cb => {
+                cb.disabled = true;
+                cb.checked = false;
+            });
+            checkboxesBox.classList.remove('visible')
+            monthDaySelect.classList.remove('visible')
+        }
+  }
+
+  select.addEventListener('change', updateCheckboxes);
+
+  // Call once to initialize state
+  updateCheckboxes();
 
     // Initial load
     fetch('/api/habits')

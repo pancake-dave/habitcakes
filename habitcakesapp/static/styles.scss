@@ -172,19 +172,149 @@ body {
 }
 
 // Dashboard
+.habit-form {
+  &__box {
+    display: flex;
+    height: auto;
+    width: auto;
+    padding: 4rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $contrast-secondary;
+    color: $main-color;
+  }
+  &__header {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__input {
+    width: 400px;
+    font-size: 1.4rem;
+    padding: .4rem;
+    margin-bottom: .6rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    &::placeholder {
+      color: $main-color;
+      font-style: normal;
+      font-size: 1.4rem;
+      font-family: "Roboto", sans-serif;
+      font-weight: 200;
+    }
+    &:focus-visible {
+      outline: 2px solid $contrast-main;
+      border: 1px solid transparent;
+    }
+    &--textarea {
+      font-family: "Roboto", sans-serif;
+      font-size: 1.4rem;
+      min-height: 2.6rem;
+      resize: vertical;
+    }
+  }
+  &__label {
+    font-size: 1.4rem;
+    padding-bottom: 1rem;
+    padding-top: .4rem;
+  }
+  &__select {
+    font-size: 1rem;
+      padding: .8rem 1.6rem;
+      border: 2px solid $main-color;
+      border-radius: 5px;
+      background-color: $contrast-secondary;
+      cursor: pointer;
+  }
+  &__checkboxes {
+    display: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  &__weekday {
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: .2rem;
+  }
+  &__weekday-label {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    padding: .1rem .2rem;
+    transition: color .2s, background-color .2s;
+    &:hover {
+      background-color: $secondary-color;
+      color: $contrast-secondary;
+    }
+  }
+  &__month-day {
+    font-size: 1.2rem;
+    display: none;
+    padding: 1rem;
+    &--label {
+      padding-right: .6rem;
+    }
+    &--input {
+      font-size: 1.2rem;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      text-align: center;
+      &:focus-visible {
+        outline: 2px solid $contrast-main;
+        border: 1px solid transparent;
+      }
+    }
+  }
+}
+
+.no-arrows::-webkit-inner-spin-button,
+.no-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.no-arrows {
+  -moz-appearance: textfield;
+}
+
+
+.visible {
+  display: flex;
+}
+
 .habit-grid {
+  &__add-button {
+    font-size: 1.2rem;
+    color: $contrast-secondary;
+    padding: .8rem 1.6rem;
+    margin: .4rem;
+    border: 2px solid $contrast-secondary;
+    border-radius: 5px;
+    background-color: $main-color;
+    cursor: pointer;
+    transition: background-color .2s, color .2s, border .2s;
+      &:hover {
+        border: 2px solid $secondary-color;
+        background-color: $contrast-secondary;
+        color: $main-color;
+      }
+  }
   &__row {
     display: grid;
     grid-template-columns: 2fr repeat(7, 1fr) 1fr;
   }
   &__cell {
-
     padding: 0.5rem;
     text-align: center;
+    border-bottom: 2px solid $secondary-color;
 
-    p {
-      padding-top: .2rem;
-      padding-bottom: .2rem;
+    &--empty {
+      font-size: 1.2rem;
     }
     &--month {
       font-weight: 300;
@@ -202,10 +332,31 @@ body {
       justify-content: center;
       font-size: 1.2rem;
       font-weight: 500;
+      //border-bottom: 1px solid $contrast-secondary;
+      border-right: 2px solid $secondary-color;
+      &:last-child {
+        border-right: none;
+      }
     }
+    &--edgetext {
+      padding-top: .2rem;
+      padding-bottom: .2rem;
+    }
+    //&--date, &--edgehabit, &--habit {
+    //  border-right: 1px solid $contrast-secondary;
+    //  border-bottom: 1px solid $contrast-secondary;
+    //}
+    //&--habit:last-child {
+      //border-bottom: 1px solid transparent;
+    //}
+    //&--progress {
+    //  border-right: none;
+    //}
     &--cell {
-      background-color: $secondary-color;
-      border: 1px solid $main-color;
+      //background-color: $secondary-color;
+      background-color: $main-color;
+      //border: 1px solid $main-color;
+      //border: 1px solid $secondary-color;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -216,6 +367,10 @@ body {
 .can-complete {
   background-color: $not-completed-yet;
   cursor: pointer;
+  transition: background-color .2s;
+  &:hover {
+    background-color: $contrast-main;
+  }
 }
 
 .completed-bg {
