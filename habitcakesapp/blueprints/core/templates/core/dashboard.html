@@ -6,31 +6,6 @@
     <h2>DEBUG</h2>
     <p>Witaj {{ current_user }}</p>
     <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br>
-{#    <form action="{{ url_for('habits.habit') }}" method="POST">#}
-{#        <input type="text" name="title" placeholder="Nazwa zadania" required="required"><br>#}
-{#        <input type="text" name="description" placeholder="Opcjonalny opis"><br>#}
-{##}
-{#        <label for="repeat_frequency">Powtarzaj co:</label>#}
-{#        <select id="repeat_frequency" name="repeat_frequency">#}
-{#            <option value="daily">Codziennie</option>#}
-{#            <option value="weekly">Co tydzień</option>#}
-{#            <option value="monthly">Co miesiąc</option>#}
-{#        </select>#}
-{##}
-{#        <input type="checkbox" id="monday" name="repeat_day" value="mon"><label for="monday">Poniedziałek</label>#}
-{#        <input type="checkbox" id="tuesday" name="repeat_day" value="tue"><label for="tuesday">Wtorek</label>#}
-{#        <input type="checkbox" id="wednesday" name="repeat_day" value="wed"><label for="wednesday">Środa</label>#}
-{#        <input type="checkbox" id="thursday" name="repeat_day" value="thu"><label for="thursday">Czwartek</label>#}
-{#        <input type="checkbox" id="friday" name="repeat_day" value="fri"><label for="friday">Piątek</label>#}
-{#        <input type="checkbox" id="saturday" name="repeat_day" value="sat"><label for="saturday">Sobota</label>#}
-{#        <input type="checkbox" id="sunday" name="repeat_day" value="sun"><label for="sunday">Niedziela</label><br>#}
-{##}
-{#        <label for="repeat_month_day" id="repeat_month_day">Dzień miesiąca:</label>#}
-{#        <input type="number" name="repeat_month_day" min="1" max="31">#}
-{#        <input type="submit" class="habit-grid__add-button" value="Dodaj">#}
-{##}
-{##}
-{#    </form>#}
     <h3>Lista zadań:</h3>
     <ul>
         {% for habit in habits %}
@@ -42,11 +17,11 @@
     <h2>DEBUG END</h2><br><br>
 {#________________________________________________________________________#}
     <section class="habit_display section_padding section">
-        <div class="habit-form__box form__box">
+        <div class="habit-form__background" id="add-habit-background"></div>
+        <div class="habit-form__box form__box" id="add-habit-form">
             <h2 class="habit-form__header">Dodaj nowy nawyk:</h2>
             <form class="habit-form__form" action="{{ url_for('habits.habit') }}" method="POST">
                 <input class="habit-form__input" type="text" name="title" placeholder="Nazwa nawyku" required="required">
-{#                <input class="habit-form__input" type="text" name="description" placeholder="Opcjonalny opis">#}
                 <textarea class="habit-form__input habit-form__input--textarea" type="text" name="description" placeholder="Opcjonalny opis"></textarea>
 
                 <label class="habit-form__label" for="repeat_frequency">Powtarzaj co:</label>
@@ -66,11 +41,11 @@
                 </div>
                 <div class="habit-form__month-day" id="month-day-select">
                     <label class="habit-form__month-day--label" for="repeat_month_day" id="repeat_month_day">Dzień miesiąca:</label>
-                    <input class="habit-form__month-day--input no-arrows" type="number" name="repeat_month_day" min="1" max="31">
+                    <input class="habit-form__month-day--input no-arrows" id="month-day-input" type="number" name="repeat_month_day" min="1" max="31">
                 </div>
                 <input type="submit" class="habit-grid__add-button habit-form__add-button" id="add-habit-btn" value="Wszytko gotowe - dodaj!">
-
             </form>
+            <button class="habit-form__cancel-button" id="cancel-form-button">Anuluj</button>
         </div>
         <div class="habit-grid wrapper" id="habit-grid">
 

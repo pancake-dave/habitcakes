@@ -151,7 +151,8 @@ body {
 }
 
 .habit-form__box {
-  display: flex;
+  z-index: 100;
+  display: none;
   height: auto;
   width: auto;
   padding: 4rem;
@@ -161,6 +162,18 @@ body {
   transform: translate(-50%, -50%);
   background-color: #DCD7C9;
   color: #2C3639;
+}
+.habit-form__background {
+  z-index: 90;
+  display: none;
+  width: 100svw;
+  height: 100svh;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  opacity: 50%;
 }
 .habit-form__header {
   font-size: 2rem;
@@ -248,6 +261,22 @@ body {
   outline: 2px solid #A27B5C;
   border: 1px solid transparent;
 }
+.habit-form__cancel-button {
+  font-size: 1rem;
+  color: #2C3639;
+  padding: 0.4rem 0.8rem;
+  margin: 0.4rem;
+  border: 2px solid #2C3639;
+  border-radius: 5px;
+  background-color: #DCD7C9;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border 0.2s;
+}
+.habit-form__cancel-button:hover {
+  border: 2px solid #3F4E4F;
+  background-color: #2C3639;
+  color: #DCD7C9;
+}
 
 .no-arrows::-webkit-inner-spin-button,
 .no-arrows::-webkit-outer-spin-button {
@@ -325,6 +354,7 @@ body {
 
 .can-complete {
   background-color: #888;
+  background-color: #3F4E4F;
   cursor: pointer;
   transition: background-color 0.2s;
 }

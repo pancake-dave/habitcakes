@@ -174,7 +174,9 @@ body {
 // Dashboard
 .habit-form {
   &__box {
-    display: flex;
+    z-index: 100;
+    //display: flex;
+    display: none;
     height: auto;
     width: auto;
     padding: 4rem;
@@ -184,6 +186,18 @@ body {
     transform: translate(-50%, -50%);
     background-color: $contrast-secondary;
     color: $main-color;
+  }
+  &__background {
+    z-index: 90;
+    display: none;
+    width: 100svw;
+    height: 100svh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    opacity: 50%;
   }
   &__header {
     font-size: 2rem;
@@ -271,6 +285,22 @@ body {
       }
     }
   }
+  &__cancel-button {
+    font-size: 1rem;
+    color: $main-color;
+    padding: .4rem .8rem;
+    margin: .4rem;
+    border: 2px solid $main-color;
+    border-radius: 5px;
+    background-color: $contrast-secondary;
+    cursor: pointer;
+    transition: background-color .2s, color .2s, border .2s;
+      &:hover {
+        border: 2px solid $secondary-color;
+        background-color: $main-color;
+        color: $contrast-secondary;
+      }
+  }
 }
 
 .no-arrows::-webkit-inner-spin-button,
@@ -281,7 +311,6 @@ body {
 .no-arrows {
   -moz-appearance: textfield;
 }
-
 
 .visible {
   display: flex;
@@ -332,7 +361,6 @@ body {
       justify-content: center;
       font-size: 1.2rem;
       font-weight: 500;
-      //border-bottom: 1px solid $contrast-secondary;
       border-right: 2px solid $secondary-color;
       &:last-child {
         border-right: none;
@@ -342,21 +370,8 @@ body {
       padding-top: .2rem;
       padding-bottom: .2rem;
     }
-    //&--date, &--edgehabit, &--habit {
-    //  border-right: 1px solid $contrast-secondary;
-    //  border-bottom: 1px solid $contrast-secondary;
-    //}
-    //&--habit:last-child {
-      //border-bottom: 1px solid transparent;
-    //}
-    //&--progress {
-    //  border-right: none;
-    //}
     &--cell {
-      //background-color: $secondary-color;
       background-color: $main-color;
-      //border: 1px solid $main-color;
-      //border: 1px solid $secondary-color;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -366,6 +381,7 @@ body {
 
 .can-complete {
   background-color: $not-completed-yet;
+  background-color: $secondary-color;
   cursor: pointer;
   transition: background-color .2s;
   &:hover {

@@ -68,7 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
             habitGrid.appendChild(emptyRow);
 
             emptyRow.querySelector('#show-form-btn').addEventListener('click', function() {
-                alert('Tu pojawi się modal z formularzem!');
+                const form = document.getElementById('add-habit-form')
+                const formBg = document.getElementById('add-habit-background')
+                form.classList.add('visible')
+                formBg.classList.add('visible')
             });
             return;
         }
@@ -118,6 +121,24 @@ document.addEventListener('DOMContentLoaded', function() {
             row.innerHTML += `<div class="habit-grid__cell habit-grid__cell--progress  habit-grid__cell--habit"><p>-</p></div>`;
             habitGrid.appendChild(row);
         });
+
+        // add new habit form button
+        const addHabitRow = document.createElement('div');
+        addHabitRow.className = 'habit-grid__row';
+        addHabitRow.innerHTML = `
+                <div class="habit-grid__cell habit-grid__cell--empty habit-grid__cell--habit" colspan="1" style="grid-column: 1 / 2; border-bottom: none">
+                    <button class="habit-grid__add-button" id="show-form-btn-2" type="button"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            `;
+        habitGrid.appendChild(addHabitRow)
+
+        addHabitRow.querySelector('#show-form-btn-2').addEventListener('click', function() {
+                const form = document.getElementById('add-habit-form')
+                const formBg = document.getElementById('add-habit-background')
+                form.classList.add('visible')
+                formBg.classList.add('visible')
+            });
+
     }
 
     // Attach event listener ONCE using event delegation
@@ -158,12 +179,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const checkboxes = document.querySelectorAll('#weekday-checkboxes .habit-form__weekday');
     const checkboxesBox = document.getElementById('weekday-checkboxes')
     const monthDaySelect = document.getElementById('month-day-select')
+    const monthDayInput = document.getElementById('month-day-input')
 
     function updateCheckboxes() {
         if (select.value === 'weekly') {
             checkboxes.forEach(cb => cb.disabled = false);
             checkboxesBox.classList.add('visible')
             monthDaySelect.classList.remove('visible')
+            monthDayInput.value = ''
         } else if (select.value === 'monthly') {
             checkboxes.forEach(cb => {
                 cb.disabled = true;
@@ -178,6 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             checkboxesBox.classList.remove('visible')
             monthDaySelect.classList.remove('visible')
+            monthDayInput.value = ''
         }
   }
 
@@ -185,6 +209,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Call once to initialize state
   updateCheckboxes();
+
+    // Showing/closing add new habit form
+    const addHabitForm = document.getElementById('add-habit-form')
+    const addHabitBg = document.getElementById('add-habit-background')
+    const cancelBtn = document.getElementById('cancel-form-button')
+
+    function closeForm() {
+      addHabitForm.classList.remove('visible')
+      addHabitBg.classList.remove('visible')
+    }
+
+    cancelBtn.addEventListener('click', closeForm)
 
     // Initial load
     fetch('/api/habits')
