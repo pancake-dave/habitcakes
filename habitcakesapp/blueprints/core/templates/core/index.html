@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <title>Habitcakes - śledź swoje postępy!</title>
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <main>
-        <div class="index__message"><p class="index__message--text">{{ message }}</p></div>
+{% extends "index_base.html" %}
+{% block title %}Habitcakes - śledź swoje postępy!{% endblock %}
+
+{% block content %}
+
+<header><div class="index__message"><p class="index__message--text">{{ message }}</p></div></header>
+    <main class="index_main">
         <section class="section-forms">
         <div class="index__box form__box">
             <img class="index__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
@@ -31,5 +24,5 @@
         </section>
         <a href=""></a>
     </main>
-</body>
-</html>
+
+{% endblock %}

@@ -23,7 +23,10 @@ body {
   font-family: "Roboto", sans-serif;
   color: #DCD7C9;
   background-color: #2C3639;
-  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .wrapper {
@@ -32,12 +35,15 @@ body {
   max-width: 1400px;
 }
 
-.section-padding {
+.section_padding {
   padding: 2rem 2rem;
 }
 
+.index_main {
+  margin: auto;
+}
+
 .section-forms {
-  height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,6 +154,10 @@ body {
   font-size: 1rem;
   font-weight: 500;
   padding-bottom: 0.2rem;
+}
+
+.habit_dashboard_main {
+  margin-bottom: auto;
 }
 
 .habit-form__box {
@@ -309,7 +319,6 @@ body {
   color: #2C3639;
 }
 .habit-grid__deledit-button {
-  cursor: pointer;
   color: #DCD7C9;
   width: 1.6rem;
   height: 1.6rem;
@@ -335,6 +344,9 @@ body {
   padding: 0.5rem;
   text-align: center;
   border-bottom: 2px solid #3F4E4F;
+}
+.habit-grid__cell--logo {
+  height: 3rem;
 }
 .habit-grid__cell--empty {
   font-size: 1.2rem;
@@ -376,13 +388,16 @@ body {
   overflow: hidden;
   justify-content: left;
   text-align: left;
+  height: 3rem;
 }
 .habit-grid__cell__title--text {
+  font-size: 1rem;
+  font-weight: normal;
   word-break: break-word;
+  margin-left: 0.2rem;
 }
 
 .can-complete {
-  background-color: #888;
   background-color: #3F4E4F;
   cursor: pointer;
   border-right: 2px solid #3F4E4F;
@@ -395,6 +410,58 @@ body {
 .completed-bg {
   background-color: #A27B5C;
   border-right: 2px solid #3F4E4F;
+}
+.completed-bg:hover {
+  background-color: #888;
+}
+
+.header {
+  padding: 1rem;
+  background-color: #3F4E4F;
+}
+.header__box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__text {
+  font-size: 2.8rem;
+}
+.header__logout-button {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border: 2px solid #3F4E4F;
+  border-radius: 5px;
+  background-color: #2C3639;
+  color: #DCD7C9;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.header__logout-button:hover {
+  background-color: #DCD7C9;
+  color: #2C3639;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  background-color: #3F4E4F;
+}
+.footer__link {
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  background-color: #2C3639;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #DCD7C9;
+  transition: color 0.2s, background-color 0.2s;
+}
+.footer__link:hover {
+  color: #3F4E4F;
+  background-color: #DCD7C9;
 }
 
 /*# sourceMappingURL=styles.css.map */

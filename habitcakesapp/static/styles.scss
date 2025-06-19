@@ -4,7 +4,7 @@ $secondary-color: #3F4E4F;
 $contrast-main: #A27B5C;
 $contrast-secondary: #DCD7C9;
 $table-bg: #000;
-$not-completed-yet: #888;
+$uncomplete: #888;
 
 // Typography cheatsheet
 .roboto {
@@ -34,7 +34,11 @@ body {
   font-family: "Roboto", sans-serif;
   color: $contrast-secondary;
   background-color: $main-color;
-  min-height: 100vh;
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .wrapper {
@@ -43,13 +47,17 @@ body {
   max-width: 1400px;
 }
 
-.section-padding {
+.section_padding {
   padding: 2rem 2rem;
+}
+
+.index_main {
+  margin: auto;
 }
 
 // Forms pages universal styling
 .section-forms {
-  height: 100svh;
+  //height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,6 +180,12 @@ body {
 }
 
 // Dashboard
+.habit_dashboard_main {
+  margin-bottom: auto;
+}
+.habit_display {
+  //padding-top: 0;
+}
 .habit-form {
   &__box {
     z-index: 100;
@@ -333,9 +347,7 @@ body {
         color: $main-color;
       }
   }
-
   &__deledit-button {
-    cursor: pointer;
     color: $contrast-secondary;
     width: 1.6rem;
     height: 1.6rem;
@@ -361,8 +373,9 @@ body {
     padding: 0.5rem;
     text-align: center;
     border-bottom: 2px solid $secondary-color;
-
-
+    &--logo {
+      height: 3rem;
+    }
     &--empty {
       font-size: 1.2rem;
     }
@@ -399,23 +412,22 @@ body {
       align-items: center;
       justify-content: center;
     }
-    //&--habit {
-    //  justify-content: left;
-    //
-    //}
     &__title {
       overflow: hidden;
       justify-content: left;
       text-align: left;
+      height: 3rem;
       &--text {
+        font-size: 1rem;
+        font-weight: normal;
         word-break: break-word;
+        margin-left: .2rem;
       }
     }
   }
 }
 
 .can-complete {
-  background-color: $not-completed-yet;
   background-color: $secondary-color;
   cursor: pointer;
   border-right: 2px solid $secondary-color;
@@ -428,6 +440,60 @@ body {
 .completed-bg {
   background-color: $contrast-main;
   border-right: 2px solid $secondary-color;
+  &:hover {
+    background-color: $uncomplete;
+  }
 }
 
+// Header for logged in only pages
+.header {
+  padding: 1rem;
+  background-color: $secondary-color;
+  &__box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__text {
+    font-size: 2.8rem;
+  }
+  &__logout-button {
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    border: 2px solid $secondary-color;
+    border-radius: 5px;
+    background-color: $main-color;
+    color: $contrast-secondary;
+    cursor: pointer;
+    transition: background-color .2s, color .2s;
+      &:hover {
+        background-color: $contrast-secondary;
+        color: $main-color;
+      }
+  }
+}
 
+// Footer
+.footer {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  //height: 4rem;
+  background-color: $secondary-color;
+  &__link {
+    padding: .4rem .8rem;
+    border-radius: 5px;
+    background-color: $main-color;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: $contrast-secondary;
+    transition: color .2s, background-color .2s;
+    &:hover {
+      color: $secondary-color;
+      background-color: $contrast-secondary;
+    }
+  }
+
+}

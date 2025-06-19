@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const completions = data.completions;
         weekDates = getCurrentWeekDates();
         // debug line
-        console.log('weekDates', weekDates, weekDates.map(d => new Date(d).getDay()));
+        // console.log('weekDates', weekDates, weekDates.map(d => new Date(d).getDay()));
         const habitGrid = document.getElementById('habit-grid');
         habitGrid.innerHTML = '';
 
@@ -49,13 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
         headerRow.className = 'habit-grid__row';
         headerRow.innerHTML = `
             <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--edgehabit habit-grid__cell--header">
-                <p class="habit-grid__cell--edgetext">Nawyk</p>
+                <img class="habit-grid__cell--logo" src="/static/img/logo_contrast.svg" alt="Habitcakes logo">
             </div>
             
             ${weekDates.map(date => {
                 const d = new Date(date);
                 const dayName = formatPolishDay(date);
-                const month_2 = d.getMonth() + 1; // months are zero-based
                 const month = formatPolishMonth(date)
                 const day = d.getDate();
                 return `<div class="habit-grid__cell habit-grid__cell--date habit-grid__cell--header">
@@ -101,10 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const createdDate = new Date(habit.created);
 
             row.innerHTML = `<div class="habit-grid__cell habit-grid__cell__title habit-grid__cell--edge habit-grid__cell--habit">
-                                <button class="habit-grid__delete-button habit-grid__deledit-button" type="button" data-hid="${habit.hid}">
+                                <button class="habit-grid__delete-button habit-grid__deledit-button" type="button" title="Usuń" data-hid="${habit.hid}">
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
-                                <button class="habit-grid__edit-button habit-grid__deledit-button" type="button" data-hid="${habit.hid}">
+                                <button class="habit-grid__edit-button habit-grid__deledit-button" type="button" title="Edytuj" data-hid="${habit.hid}">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                                 <p class="habit-grid__cell__title--text ">${habit.title}</p>
@@ -146,6 +145,16 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p>-</p>
                               </div>`;
             habitGrid.appendChild(row);
+
+            // clunky way to adjust the habit title font size - maybe I'll play with it later
+            // document.querySelectorAll('.habit-grid__cell__title--text').forEach(el => {
+            //     console.log(el.scrollHeight, el.clientHeight)
+            //     if (el.scrollHeight > 23) { //had to hardcode the max height
+            //         el.style.fontSize = '1rem';
+            //     } else {
+            //         el.style.fontSize = '';
+            //     }
+            // });
         });
 
         // add new habit form button beneath last row
@@ -153,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         addHabitRow.className = 'habit-grid__row';
         addHabitRow.innerHTML = `
                 <div class="habit-grid__cell habit-grid__cell--habit" colspan="1" style="grid-column: 1 / 2; border-bottom: none">
-                    <button class="habit-grid__add-button" id="show-form-btn-2" type="button">
+                    <button class="habit-grid__add-button" id="show-form-btn-2" type="button" title="Dodaj nowy">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -188,6 +197,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
         }
+    });
+    // Attach event delegation for edit buttons ONCE
+    habitGrid.addEventListener('click', function(e) {
+        let btn = e.target.closest('.habit-grid__edit-button[data-hid]');
+        if (!btn) return;
+        e.stopPropagation();
+        const hid = btn.getAttribute('data-hid');
+        if (!hid) return;
+        // Redirect to the habit edit page
+        window.location.href = `/habit/habit/edit/${hid}`;
     });
 
     // Attach event listener ONCE using event delegation for marking completions

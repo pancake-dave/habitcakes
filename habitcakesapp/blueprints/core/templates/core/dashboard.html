@@ -2,14 +2,15 @@
 {% block title %}Habitcakes - pulpit{% endblock %}
 
 {% block content %}
-    <main>
+
+    <main class="habit_dashboard_main">
         <section class="habit_display section_padding section">
             <div class="habit-form__background" id="add-habit-background"></div>
             <div class="habit-form__box form__box" id="add-habit-form">
                 <h2 class="habit-form__header">Dodaj nowy nawyk:</h2>
 
                 <form class="habit-form__form" action="{{ url_for('habits.habit') }}" method="POST">
-                    <input class="habit-form__input" id="habit-name-input" type="text" maxlength="20" name="title" placeholder="Nazwa nawyku" required="required">
+                    <input class="habit-form__input" id="habit-name-input" type="text" maxlength="30" name="title" placeholder="Nazwa nawyku" required="required">
                     <textarea class="habit-form__input habit-form__input--textarea" id="habit-name-description" type="text" maxlength="100" name="description" placeholder="Opcjonalny opis"></textarea>
 
                     <label class="habit-form__label" for="repeat_frequency">Powtarzaj:</label>
@@ -41,4 +42,5 @@
             </div>
         </section>
     </main>
+
 {% endblock %}

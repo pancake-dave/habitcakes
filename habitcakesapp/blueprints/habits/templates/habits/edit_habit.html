@@ -1,34 +1,70 @@
 {% extends "base.html" %}
-{% block title %}Edytuj Zadanie{% endblock %}
+{% block title %}Habitcakes - edytuj nawyk{% endblock %}
 
 {% block content %}
-<h2>Edytuj zadanie</h2>
-<form method="POST">
-    <label>Tytuł:</label>
-    <input type="text" name="title" value="{{ habit.title }}" required><br>
 
-    <label>Opis:</label>
-    <input type="text" name="description" value="{{ habit.description }}"><br>
+    <main>
+        <section class="habit_display section_padding section">
+            <div class="habit-form__box form__box" style="display: flex">
+                <h2 class="habit-form__header">Edytuj nawyk:</h2>
 
-    <label>Interwał:</label>
-    <select name="repeat_frequency">
-        <option value="daily" {{ 'selected' if habit.repeat_frequency == 'daily' else '' }}>Daily</option>
-        <option value="weekly" {{ 'selected' if habit.repeat_frequency == 'weekly' else '' }}>Weekly</option>
-        <option value="monthly" {{ 'selected' if habit.repeat_frequency == 'monthly' else '' }}>Monthly</option>
-    </select><br>
+                <form class="habit-form__form" method="POST">
+                    <input class="habit-form__input" type="text" name="title" value="{{ habit.title }}" maxlength="30" placeholder="Nazwa nawyku" required="required">
+                    <input class="habit-form__input habit-form__input--textarea" type="text" name="description" value="{{ habit.description }}" maxlength="100" placeholder="Opcjonalny opis">
 
-    <label>Dni:</label>
-    {% set days = ['mon','tue','wed','thu','fri','sat','sun'] %}
-    {% for day in days %}
-        <input type="checkbox" name="repeat_day" value="{{ day }}"
-            {% if day in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
-        <label>{{ day.capitalize() }}</label>
-    {% endfor %}
-    <br>
-    <label>Aktywny:</label>
-    <input type="checkbox" name="is_active" value="1" {% if habit.is_active %}checked{% endif %}>
-    <label for="is_active">Zadanie aktywne</label><br>
-    <input type="submit" value="Aktualizuj">
-</form>
-<a href="{{ url_for('core.dashboard') }}">Anuluj</a>
+
+                    <label class="habit-form__label" for="repeat_frequency">Powtarzaj:</label>
+                    <select class="habit-form__select" id="repeat_frequency" name="repeat_frequency">
+                        <option value="daily" {{ 'selected' if habit.repeat_frequency == 'daily' else '' }}>codziennie</option>
+                        <option value="weekly" {{ 'selected' if habit.repeat_frequency == 'weekly' else '' }}>co tydzień</option>
+                        <option value="monthly" {{ 'selected' if habit.repeat_frequency == 'monthly' else '' }}>co miesiąc</option>
+                    </select>
+
+                    <div class="habit-form__checkboxes" id="weekday-checkboxes">
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="mon" id="monday"
+                            {% if 'mon' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="monday">Poniedziałek</label>
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="tue" id="tuesday"
+                            {% if 'tue' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="tuesday">Wtorek</label>
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="wed" id="wednesday"
+                            {% if 'wed' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="wednesday">Środa</label>
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="thu" id="thursday"
+                            {% if 'thu' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="thursday">Czwartek</label>
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="fri" id="friday"
+                            {% if 'fri' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="friday">Piątek</label>
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="sat" id="saturday"
+                            {% if 'sat' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="saturday">Sobota</label>
+                        <input class="habit-form__weekday" type="checkbox" name="repeat_day" value="sun" id="sunday"
+                            {% if 'sun' in (habit.repeat_day.split('.') if habit.repeat_day else []) %}checked{% endif %}>
+                        <label class="habit-form__weekday-label" for="sunday">Niedziela</label>
+                    </div>
+
+                    <div class="habit-form__month-day" id="month-day-select">
+                        <label class="habit-form__month-day--label" for="repeat_month_day" id="repeat_month_day">Dzień miesiąca:</label>
+                        <input class="habit-form__month-day--input no-arrows" id="month-day-input" type="number" name="repeat_month_day" min="1" max="31" value="{{ habit.repeat_month_day }}">
+                    </div>
+                    <input type="submit" class="habit-grid__add-button habit-form__add-button" id="add-habit-btn" value="Wszytko gotowe - zapisz!">
+                </form>
+
+                <a href="{{ url_for('core.dashboard') }}"><button class="habit-form__cancel-button" id="cancel-form-button">Anuluj</button></a>
+            </div>
+            <div class="habit-grid wrapper" id="habit-grid">
+
+            </div>
+        </section>
+    </main>
+
+{# Not implemented yet #}
+{#<h2>Edytuj zadanie</h2>#}
+{#<form method="POST">#}
+{#    <label>Aktywny:</label>#}
+{#    <input type="checkbox" name="is_active" value="1" {% if habit.is_active %}checked{% endif %}>#}
+{#    <label for="is_active">Zadanie aktywne</label><br>#}
+{#    <input type="submit" value="Aktualizuj">#}
+{#</form>#}
 {% endblock %}

@@ -1,7 +1,8 @@
-{% extends "base.html" %}
+{% extends "index_base.html" %}
 {% block title %}Habitcakes - logowanie{% endblock %}
 
 {% block content %}
+    <main>
     <section class="section-forms">
         <div class="signup__box form__box">
             <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
@@ -17,4 +18,5 @@
             </a>
         </div>
     </section>
+    </main>
 {% endblock %}
