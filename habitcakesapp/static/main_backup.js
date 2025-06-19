@@ -1,25 +1,40 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // this is here because nothing works if it isn't
     const habitGrid = document.getElementById('habit-grid');
     // Store habits and weekDates for event handler closure access
     let habits = [];
     let weekDates = [];
 
     // Helper functions
-    // lol because of the timezones grid will render from sunday between 0:00 - 2:00
-    function getCurrentWeekDates() {
-        const today = new Date();
-        const days = [];
-        const dayOfWeek = today.getDay();
-        const diffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-        const monday = new Date(today);
-        monday.setDate(today.getDate() - diffToMonday);
-        for (let i = 0; i < 7; i++) {
-            const d = new Date(monday);
-            d.setDate(monday.getDate() + i);
-            days.push(d.toISOString().slice(0, 10));
-        }
-        return days;
+    // function getCurrentWeekDates() {
+    //     const today = new Date();
+    //     const days = [];
+    //     const monday = new Date(today);
+    //     monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+    //     for (let i = 0; i < 7; i++) {
+    //         const d = new Date(monday);
+    //         d.setDate(monday.getDate() + i);
+    //         days.push(d.toISOString().slice(0, 10));
+    //     }
+    //     return days;
+    // }
+function getCurrentWeekDates() {
+    const today = new Date();
+    const days = [];
+    // getDay(): 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    // Adjust so Monday is 0, Sunday is 6
+    const dayOfWeek = today.getDay();
+    // Calculate diff to Monday
+    const diffToMonday = ((dayOfWeek + 6) % 7);
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - diffToMonday);
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        days.push(d.toISOString().slice(0, 10));
     }
+    return days;
+}
 
     function formatPolishDay(dateStr) {
         const days = ['Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota','Niedziela'];
@@ -38,8 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
         habits = data.habits;
         const completions = data.completions;
         weekDates = getCurrentWeekDates();
-        // debug line
-        console.log('weekDates', weekDates, weekDates.map(d => new Date(d).getDay()));
         const habitGrid = document.getElementById('habit-grid');
         habitGrid.innerHTML = '';
 
@@ -62,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <p class="habit-grid__cell--day">${day}</p>
                             <p class="habit-grid__cell--dayname">${dayName}</p>
                         </div>`;
-                                        }).join('')}
+                                    }).join('')}
             
             <div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--header">
                 <p class="habit-grid__cell--edgetext">Progres</p>
@@ -100,11 +113,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const createdDate = new Date(habit.created);
 
             row.innerHTML = `<div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--habit">
-                                <p>${habit.title}</p>
-                                <span class="habit-grid__delete-button" data-hid="${habit.hid}">
-                                    <i class="fa-regular fa-rectangle-xmark"></i>
-                                </span>
-                             </div>`;
+                            <p>${habit.title}</p>
+                            <i class="habit-grid__delete-button fa-regular fa-rectangle-xmark" id="delete-habit-button" data-hid="${habit.hid}"></i>
+                            </div>`;
 
             weekDates.forEach((date, dateIndex) => {
                 const key = `${habit.hid}|${date}`;
@@ -142,6 +153,35 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p>-</p>
                               </div>`;
             habitGrid.appendChild(row);
+
+            // Remove any previous delete listeners to avoid duplicates
+
+habitGrid.onclick = function(e) {
+    // Find the delete button or its parent
+    let btn = e.target.closest('.habit-grid__delete-button[data-hid]');
+    if (!btn) return;
+
+    // Prevent double prompt
+    e.stopPropagation();
+
+    const hid = btn.getAttribute('data-hid');
+    if (!hid) return;
+
+    if (confirm('Delete this habit?')) {
+        fetch(`/api/habit/delete/${hid}`, {method: 'POST'})
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.success) {
+                    // Refresh the grid
+                    fetch('/api/habits')
+                        .then(response => response.json())
+                        .then(data => renderHabitGrid(data));
+                } else {
+                    alert('Failed to delete habit!');
+                }
+            });
+    }
+};
         });
 
         // add new habit form button beneath last row
@@ -162,31 +202,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.classList.add('visible')
                 formBg.classList.add('visible')
             });
+
     }
 
-    // Attach event delegation for delete buttons ONCE
-    habitGrid.addEventListener('click', function(e) {
-        let btn = e.target.closest('.habit-grid__delete-button[data-hid]');
-        if (!btn) return;
-        e.stopPropagation();
-        const hid = btn.getAttribute('data-hid');
-        if (!hid) return;
-        if (confirm('Delete this habit?')) {
-            fetch(`/api/habit/delete/${hid}`, {method: 'POST'})
-                .then(resp => resp.json())
-                .then(data => {
-                    if (data.success) {
-                        fetch('/api/habits')
-                            .then(response => response.json())
-                            .then(data => renderHabitGrid(data));
-                    } else {
-                        alert('Failed to delete habit!');
-                    }
-                });
-        }
-    });
-
-    // Attach event listener ONCE using event delegation for marking completions
+    // Attach event listener ONCE using event delegation
     document.getElementById('habit-grid').addEventListener('click', function(e) {
         const cell = e.target.closest('.habit-grid__cell.can-complete');
         if (!cell) return;
@@ -248,12 +267,12 @@ document.addEventListener('DOMContentLoaded', function() {
             monthDaySelect.classList.remove('visible')
             monthDayInput.value = ''
         }
-    }
+  }
 
-    select.addEventListener('change', updateCheckboxes);
+  select.addEventListener('change', updateCheckboxes);
 
-    // call once to initialize state
-    updateCheckboxes();
+  // call once to initialize state
+  updateCheckboxes();
 
     // closing add new habit form
     const addHabitForm = document.getElementById('add-habit-form')
