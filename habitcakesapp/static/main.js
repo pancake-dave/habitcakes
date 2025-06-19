@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // this is here because nothing works if it is someplace else
     const habitGrid = document.getElementById('habit-grid');
     // Store habits and weekDates for event handler closure access
     let habits = [];
@@ -99,11 +100,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const repeatDays = habit.repeat_day ? habit.repeat_day.split('.') : [];
             const createdDate = new Date(habit.created);
 
-            row.innerHTML = `<div class="habit-grid__cell habit-grid__cell--edge habit-grid__cell--habit">
-                                <p>${habit.title}</p>
-                                <span class="habit-grid__delete-button" data-hid="${habit.hid}">
-                                    <i class="fa-regular fa-rectangle-xmark"></i>
-                                </span>
+            row.innerHTML = `<div class="habit-grid__cell habit-grid__cell__title habit-grid__cell--edge habit-grid__cell--habit">
+                                <button class="habit-grid__delete-button habit-grid__deledit-button" type="button" data-hid="${habit.hid}">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                                <button class="habit-grid__edit-button habit-grid__deledit-button" type="button" data-hid="${habit.hid}">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <p class="habit-grid__cell__title--text ">${habit.title}</p>
                              </div>`;
 
             weekDates.forEach((date, dateIndex) => {
@@ -171,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
         const hid = btn.getAttribute('data-hid');
         if (!hid) return;
-        if (confirm('Delete this habit?')) {
+        if (confirm('Czy na pewno chcesz usunąć tę pozycję?')) {
             fetch(`/api/habit/delete/${hid}`, {method: 'POST'})
                 .then(resp => resp.json())
                 .then(data => {
@@ -180,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             .then(response => response.json())
                             .then(data => renderHabitGrid(data));
                     } else {
-                        alert('Failed to delete habit!');
+                        alert('Wystąpił bBłąd przy usuwaniu!');
                     }
                 });
         }
@@ -259,6 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const addHabitForm = document.getElementById('add-habit-form')
     const addHabitBg = document.getElementById('add-habit-background')
     const cancelBtn = document.getElementById('cancel-form-button')
+    const habitNameInput = document.getElementById('habit-name-input')
+    const habitDescriptionInput = document.getElementById('habit-name-description')
 
     function closeForm() {
       addHabitForm.classList.remove('visible')
@@ -267,6 +273,8 @@ document.addEventListener('DOMContentLoaded', function() {
             cb.checked = false
         })
         monthDayInput.value = ''
+        habitNameInput.value = ''
+        habitDescriptionInput.value = ''
     }
 
     cancelBtn.addEventListener('click', closeForm)

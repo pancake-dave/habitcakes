@@ -3,17 +3,18 @@
 
 {% block content %}
     <main>
-        <h2>DEBUG</h2>
-        <p>Witaj {{ current_user }}</p>
-        <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br>
-        <h3>Lista zadań:</h3>
-        <ul>
-            {% for habit in habits %}
-            <li>{{ habit }} <a href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
-                <a href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
-            </li>
-            {% endfor %}
-        </ul>
-        <h2>DEBUG END</h2><br><br>
-    </main>>
+        <section class="section-padding">
+            <h2>DEBUG</h2><br>
+            <p>Witaj {{ current_user }}</p><br>
+            <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br><br>
+            <h3>Lista zadań:</h3><br>
+            <ul>
+                {% for habit in habits %}
+                <li>{{ habit }} <a href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
+                    <a href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
+                </li><br>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
 {% endblock %}

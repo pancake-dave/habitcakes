@@ -308,11 +308,24 @@ body {
   background-color: #DCD7C9;
   color: #2C3639;
 }
-.habit-grid__delete-button {
-  position: absolute;
-  left: 1rem;
-  font-size: 1.4rem;
+.habit-grid__deledit-button {
   cursor: pointer;
+  color: #DCD7C9;
+  width: 1.6rem;
+  height: 1.6rem;
+  min-width: 1.6rem;
+  min-height: 1.6rem;
+  margin-right: 0.4rem;
+  border: 2px solid #DCD7C9;
+  border-radius: 5px;
+  background-color: #2C3639;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border 0.2s;
+}
+.habit-grid__deledit-button:hover {
+  border: 2px solid #3F4E4F;
+  background-color: #DCD7C9;
+  color: #2C3639;
 }
 .habit-grid__row {
   display: grid;
@@ -358,6 +371,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.habit-grid__cell__title {
+  overflow: hidden;
+  justify-content: left;
+  text-align: left;
+}
+.habit-grid__cell__title--text {
+  word-break: break-word;
 }
 
 .can-complete {

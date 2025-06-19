@@ -334,11 +334,24 @@ body {
       }
   }
 
-  &__delete-button {
-    position: absolute;
-    left: 1rem;
-    font-size: 1.4rem;
+  &__deledit-button {
     cursor: pointer;
+    color: $contrast-secondary;
+    width: 1.6rem;
+    height: 1.6rem;
+    min-width: 1.6rem;
+    min-height: 1.6rem;
+    margin-right: .4rem;
+    border: 2px solid $contrast-secondary;
+    border-radius: 5px;
+    background-color: $main-color;
+    cursor: pointer;
+    transition: background-color .2s, color .2s, border .2s;
+      &:hover {
+        border: 2px solid $secondary-color;
+        background-color: $contrast-secondary;
+        color: $main-color;
+      }
   }
   &__row {
     display: grid;
@@ -348,6 +361,7 @@ body {
     padding: 0.5rem;
     text-align: center;
     border-bottom: 2px solid $secondary-color;
+
 
     &--empty {
       font-size: 1.2rem;
@@ -386,8 +400,17 @@ body {
       justify-content: center;
     }
     //&--habit {
+    //  justify-content: left;
     //
     //}
+    &__title {
+      overflow: hidden;
+      justify-content: left;
+      text-align: left;
+      &--text {
+        word-break: break-word;
+      }
+    }
   }
 }
 
