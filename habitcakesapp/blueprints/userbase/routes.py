@@ -1,6 +1,7 @@
 # modules imports
-from flask import render_template, redirect, request, Blueprint, url_for
+from flask import render_template, redirect, request, Blueprint, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
+from sqlalchemy.exc import IntegrityError
 # app imports
 from habitcakesapp.blueprints.userbase.models import User
 from habitcakesapp.app import db, bcrypt
@@ -20,9 +21,19 @@ def create():
         # adding the user to database
         user = User(username=name, password=h_password, email=email)
         db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.commit()
+            return render_template('userbase/success.html')
+        except IntegrityError as e:
+            db.session.rollback()
+            # check if it's an email error
+            if 'email' in str(e.orig):
+                flash('Konto z podanym adresem e-mail już istnieje!', 'danger')
+            else:
+                flash('Wystąpił błąd, spróbuj ponownie.', 'danger')
+            return render_template('userbase/create.html')
 
-        return render_template('userbase/success.html')
+
 
 @userbase.route('/login', methods=['GET','POST'])
 def login():
@@ -42,4 +53,5 @@ def login():
 @userbase.route('/logout')
 def logout():
     logout_user()
-    return render_template('core/index.html', message='Nastąpiło poprawne wylogowanie')
+    flash('Nastąpiło poprawne wylogowanie', 'success')
+    return render_template('core/index.html')

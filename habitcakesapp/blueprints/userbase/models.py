@@ -12,7 +12,10 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String,default='user', nullable=False)
     # database relationship
     habits = db.relationship('Habit', back_populates='user')
-
+    # unique constrains for avoiding duplicates
+    __table_args__ = (
+        db.UniqueConstraint('email', name='_email_uc'),
+    )
     # overriding parent classes methods
     def __repr__(self):
         return f'<User: {self.username}, Email: {self.email}>'

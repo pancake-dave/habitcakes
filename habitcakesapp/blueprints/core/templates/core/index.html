@@ -3,7 +3,22 @@
 
 {% block content %}
 
-<header><div class="index__message"><p class="index__message--text">{{ message }}</p></div></header>
+    <header class="index__flash">
+        <div class="index__flash__box wrapper">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="index__flash__list">
+                        {% for category, message in messages %}
+                            <li class="index__flash--{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+    </header>
+
     <main class="index_main">
         <section class="section-forms">
         <div class="index__box form__box">

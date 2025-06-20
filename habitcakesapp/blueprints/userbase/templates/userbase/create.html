@@ -2,10 +2,26 @@
 {% block title %}Habitcakess - załóż nowe konto{% endblock %}
 
 {% block content %}
+
     <section class="section-forms">
     <div class="signup__box form__box">
         <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
         <h1 class="signup__header form__header">Załóż nowe konto</h1>
+
+        <div class="signup__flash__box">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="signup__flash__list">
+                        {% for category, message in messages %}
+                            <li class="signup__flash--{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+
         <form class="signup__form" action="{{ url_for('userbase.create') }}" method="POST">
             <input class="signup__form--input" type="text" name="name" placeholder="Nazwa użytkownika" required="required">
             <input class="signup__form--input" type="email" name="email" placeholder="Adres e-mail" required="required">
