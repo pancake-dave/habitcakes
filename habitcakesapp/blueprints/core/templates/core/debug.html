@@ -12,9 +12,18 @@
                 {% for habit in habits %}
                 <li>{{ habit }} <a class="debug__link" href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
                     <a class="debug__link" href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
-                </li><br>
+                </li>
                 {% endfor %}
             </ul>
+            <br><br>
+
+        <h3>Completions:</h3><br>
+            <ul>
+                {% for c in completions %}
+                <li>{{ c }}</li>
+                {% endfor %}
+            </ul>
+
         </section>
     </main>
 {% endblock %}

@@ -37,23 +37,34 @@ def dashboard():
 @core.route('/debug')
 @login_required
 def debug():
-    user_habits = current_user.habits
-    processed_habits = []
-    for habit in user_habits:
-        habit_dict = {
-            'hid': habit.hid,
-            'title': habit.title,
-            'description': habit.description,
-            'repeat_frequency': habit.repeat_frequency,
-            'created': habit.created,
-            'user_id': habit.user_id,
-            'repeat_days_list': habit.repeat_day.split('.') if habit.repeat_day else [],
-            'is_active': habit.is_active,
-            'repeat_month_day': habit.repeat_month_day
+    processed_habits = [
+        {
+            'hid': h.hid,
+            'title': h.title,
+            'description': h.description,
+            'repeat_frequency': h.repeat_frequency,
+            'created': h.created,
+            'user_id': h.user_id,
+            'repeat_days_list': h.repeat_day.split('.') if h.repeat_day else [],
+            'is_active': h.is_active,
+            'repeat_month_day': h.repeat_month_day
         }
-        processed_habits.append(habit_dict)
+        for h in current_user.habits
+    ]
 
-    return render_template('core/debug.html', habits=processed_habits)
+    completions = HabitCompletion.query.filter_by(user_id=current_user.uid).all()
+    processed_completions = [
+        {
+            'hcid': c.hcid,
+            'user_id': c.user_id,
+            'habit_id': c.habit_id,
+            'date': str(c.date),
+            'completed': 'yes' if c.completed else 'no'
+        }
+        for c in completions
+    ]
+
+    return render_template('core/debug.html', habits=processed_habits, completions=processed_completions)
 
 
 # API endpoints for JS

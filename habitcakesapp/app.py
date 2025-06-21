@@ -11,7 +11,7 @@ bcrypt = Bcrypt()
 def create_app():
     app = Flask(__name__, template_folder='templates')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./habitcakes.db'
-    app.secret_key = 'PLACEHOLDER KEY' # should be something secure in prod
+    app.secret_key = 'CHANGE THIS BEFORE DEPLOYING' # should be something secure in prod
 
     db.init_app(app)
     bcrypt.init_app(app)
