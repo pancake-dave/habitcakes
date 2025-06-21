@@ -8,13 +8,13 @@
         <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
         <h1 class="signup__header form__header">Załóż nowe konto</h1>
 
-        <div class="signup__flash__box">
+        <div class="form__flash__box">
 
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
-                    <ul class="signup__flash__list">
+                    <ul class="form__flash__list">
                         {% for category, message in messages %}
-                            <li class="signup__flash--{{ category }}">{{ message }}</li>
+                            <li class="form__flash--{{ category }}">{{ message }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}

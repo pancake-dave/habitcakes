@@ -43,6 +43,13 @@ body {
   margin: auto;
 }
 
+.debug {
+  margin-bottom: auto;
+}
+.debug__link {
+  color: #A27B5C;
+}
+
 .section-forms {
   display: flex;
   align-items: center;
@@ -69,6 +76,14 @@ body {
   cursor: default;
   padding-bottom: 0.8rem;
   font-size: 2.8rem;
+}
+.form__flash__list {
+  list-style: none;
+}
+.form__flash--danger {
+  font-weight: 700;
+  color: #531212;
+  padding-bottom: 1rem;
 }
 
 .index__flash {
@@ -112,14 +127,6 @@ body {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.signup__flash__list {
-  list-style: none;
-}
-.signup__flash--danger {
-  font-weight: 700;
-  color: #531212;
-  padding-bottom: 1rem;
-}
 .signup__box {
   height: auto;
 }
@@ -337,7 +344,7 @@ body {
   min-width: 1.6rem;
   min-height: 1.6rem;
   margin-right: 0.4rem;
-  border: 2px solid #DCD7C9;
+  border: 1px solid #DCD7C9;
   border-radius: 5px;
   background-color: #2C3639;
   cursor: pointer;

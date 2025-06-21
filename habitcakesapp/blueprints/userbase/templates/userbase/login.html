@@ -7,7 +7,22 @@
         <div class="signup__box form__box">
             <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
             <h1 class="signup__header form__header">Zaloguj się</h1>
-            <p class="signup__fail-message">{{ fail_message }}</p>
+
+            <div class="form__flash__box">
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="form__flash__list">
+                        {% for category, message in messages %}
+                            <li class="form__flash--{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+
+{#            <p class="signup__fail-message">{{ fail_message }}</p>#}
             <form class="signup__form" action="{{ url_for('userbase.login') }}" method="POST">
                 <input class="signup__form--input" type="email" name="email" placeholder="Email" required="required">
                 <input class="signup__form--input" type="password" name="password" placeholder="Password" required="required">

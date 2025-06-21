@@ -2,16 +2,16 @@
 {% block title %}Debug{% endblock %}
 
 {% block content %}
-    <main>
-        <section class="section-padding">
+    <main class="debug">
+        <section class="section_padding">
             <h2>DEBUG</h2><br>
-            <p>Witaj {{ current_user }}</p><br>
-            <a href="{{ url_for('userbase.logout') }}">Wyloguj</a><br><br>
+            <span>{{ current_user }}</span>
+            <a class="debug__link" href="{{ url_for('userbase.logout') }}">  Wyloguj</a><br><br>
             <h3>Lista zadań:</h3><br>
             <ul>
                 {% for habit in habits %}
-                <li>{{ habit }} <a href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
-                    <a href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
+                <li>{{ habit }} <a class="debug__link" href="{{ url_for('habits.edit_habit', habit_id=habit['hid']) }}">Edytuj</a>
+                    <a class="debug__link" href="{{ url_for('habits.delete', habit_id=habit['hid']) }}">Usuń</a>
                 </li><br>
                 {% endfor %}
             </ul>

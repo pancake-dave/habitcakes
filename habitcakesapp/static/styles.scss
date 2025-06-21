@@ -56,6 +56,13 @@ body {
   margin: auto;
 }
 
+.debug {
+  margin-bottom: auto;
+  &__link {
+    color: $contrast-main;
+  }
+}
+
 
 // Forms pages universal styling
 .section-forms {
@@ -85,6 +92,18 @@ body {
     cursor: default;
     padding-bottom: .8rem;
     font-size: 2.8rem;
+  }
+  &__flash {
+    &__box {
+    }
+    &__list {
+      list-style: none;
+    }
+    &--danger {
+      font-weight: 700;
+      color: $danger;
+      padding-bottom: 1rem;
+    }
   }
 }
 
@@ -135,18 +154,6 @@ body {
 
 // Signup and login page
 .signup {
-  &__flash {
-    &__box {
-    }
-    &__list {
-      list-style: none;
-    }
-    &--danger {
-      font-weight: 700;
-      color: $danger;
-      padding-bottom: 1rem;
-    }
-  }
   &__box {
     height: auto;
   }
@@ -371,7 +378,7 @@ body {
     min-width: 1.6rem;
     min-height: 1.6rem;
     margin-right: .4rem;
-    border: 2px solid $contrast-secondary;
+    border: 1px solid $contrast-secondary;
     border-radius: 5px;
     background-color: $main-color;
     cursor: pointer;
@@ -437,6 +444,7 @@ body {
       &--text {
         font-size: 1rem;
         font-weight: normal;
+        //font-weight: 500;
         word-break: break-word;
         margin-left: .2rem;
       }
@@ -512,5 +520,4 @@ body {
       background-color: $contrast-secondary;
     }
   }
-
 }

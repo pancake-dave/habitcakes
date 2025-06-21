@@ -1,6 +1,6 @@
 # modules imports
 from flask import render_template, redirect, request, Blueprint, url_for, flash
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user
 from sqlalchemy.exc import IntegrityError
 # app imports
 from habitcakesapp.blueprints.userbase.models import User
@@ -23,7 +23,7 @@ def create():
         db.session.add(user)
         try:
             db.session.commit()
-            return render_template('userbase/success.html')
+            return redirect(url_for('userbase.success'))
         except IntegrityError as e:
             db.session.rollback()
             # check if it's an email error
@@ -33,6 +33,10 @@ def create():
                 flash('Wystąpił błąd, spróbuj ponownie.', 'danger')
             return render_template('userbase/create.html')
 
+
+@userbase.route('/success')
+def success():
+    return render_template('userbase/success.html')
 
 
 @userbase.route('/login', methods=['GET','POST'])
@@ -44,14 +48,20 @@ def login():
         password = request.form.get('password')
         # verifying login data
         user = User.query.filter(User.email == email).first()
-        if bcrypt.check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('core.dashboard'))
+        if user:
+            if bcrypt.check_password_hash(user.password, password):
+                login_user(user)
+                return redirect(url_for('core.dashboard'))
+            else:
+                flash('Błędny adres email lub hasło, spróbuj ponownie.', category='danger')
+                return render_template('userbase/login.html')
         else:
-            return render_template('userbase/login.html', fail_message='Błędny adres email lub hasło, spróbuj ponownie')
+            flash('Błędny adres email lub hasło, spróbuj ponownie.', category='danger')
+            return render_template('userbase/login.html')
+
 
 @userbase.route('/logout')
 def logout():
     logout_user()
     flash('Nastąpiło poprawne wylogowanie', 'success')
-    return render_template('core/index.html')
+    return redirect(url_for('core.index'))
