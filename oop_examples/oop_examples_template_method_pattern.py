@@ -19,13 +19,3 @@ class HabitReportTemplate:
 class SpecialHabitReport(HabitReportTemplate):
     def footer(self, habit):
         return f"!!! Specjalny raport dla habitów kategorii: {habit.category} !!!\n"
-
-# Example usage:
-if __name__ == "__main__":
-    from base_habits import GeneralHabit, SpecialHabit
-    g = GeneralHabit(1, "Czytanie", "Czytaj codziennie 10 stron")
-    s = SpecialHabit(2, "Joga", "Ćwicz jogę rano")
-    report = HabitReportTemplate().generate(g)
-    special_report = SpecialHabitReport().generate(s)
-    print(report)
-    print(special_report)

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // this is here because nothing works if it is someplace else
     const habitGrid = document.getElementById('habit-grid');
-    // Store habits and weekDates for event handler closure access
+
     let habits = [];
     let weekDates = [];
 
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const dayCodes = ['sun','mon','tue','wed','thu','fri','sat'];
                 const dayCode = dayCodes[jsDay];
 
-                // Enhanced logic for repeat_frequency with monthly fallback
+                // repeat_frequency with monthly fallback - when user sets "monthly" and day is set to 29-31 it makes the habit being shown on the last day when current month is shorter
                 let canComplete = false;
                 if (habit.repeat_frequency === "daily") {
                     canComplete = true;
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     canComplete = (dayInMonth === dueDay);
                 }
 
-                // Add data attributes for easy access in event handler
+                // data attributes for easy access in event handler
                 row.innerHTML += `
                     <div 
                         class="habit-grid__cell habit-grid__cell--cell habit-grid__cell--habit${canComplete ? ' can-complete' : ''} ${completed ? 'completed-bg' : ''}" 
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Attach event delegation for delete buttons ONCE
+    // attach event delegation for delete buttons ONCE - first version sent post requests multiple times on one click
     habitGrid.addEventListener('click', function(e) {
         let btn = e.target.closest('.habit-grid__delete-button[data-hid]');
         if (!btn) return;
@@ -198,18 +198,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         }
     });
-    // Attach event delegation for edit buttons ONCE
+    // attach event delegation for edit buttons ONCE - same as the previous one
     habitGrid.addEventListener('click', function(e) {
         let btn = e.target.closest('.habit-grid__edit-button[data-hid]');
         if (!btn) return;
         e.stopPropagation();
         const hid = btn.getAttribute('data-hid');
         if (!hid) return;
-        // Redirect to the habit edit page
         window.location.href = `/habit/habit/edit/${hid}`;
     });
 
-    // Attach event listener ONCE using event delegation for marking completions
+    // attach event listener ONCE using event delegation for marking completions - also this listener thing
     document.getElementById('habit-grid').addEventListener('click', function(e) {
         const cell = e.target.closest('.habit-grid__cell.can-complete');
         if (!cell) return;
@@ -220,8 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const habit = habits[parseInt(habitIndex, 10)];
         const date = weekDates[parseInt(dateIndex, 10)];
-
-        // Optionally: disable cell or show loading...
 
         fetch('/habit/habit/toggle_completed', {
             method: 'POST',
@@ -242,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add habit form behaviour handling
+    // add habit form behaviour handling
     const select = document.getElementById('repeat_frequency');
     const checkboxes = document.querySelectorAll('#weekday-checkboxes .habit-form__weekday');
     const checkboxesBox = document.getElementById('weekday-checkboxes')

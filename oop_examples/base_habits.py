@@ -56,4 +56,3 @@ class SpecialHabit(GeneralHabit):
 # Polimorfizm
 def print_habit_info(habit):
     print(habit.description_text())
-
