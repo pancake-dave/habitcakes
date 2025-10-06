@@ -1,7 +1,7 @@
 # HabitCakes
 
-**HabitCakes** is a simple web application for tracking and managing your habits. For now it's only a project I made for my OOP course, but will become a part of my portfolio in the future.
-It's built with Flask and SQLAlchemy (SQLite for now). Frontend has some vanilla JS spaghetti doing things. 
+**HabitCakes** is a simple web application for tracking and managing your habits. It's a project I made for my OOP course, but I'm plan to work on it in the future.
+It's built with Flask and SQLAlchemy (SQLite for now). Frontend has some vanilla JS code doing its thing.
 
 ## Features
 
@@ -14,7 +14,7 @@ It's built with Flask and SQLAlchemy (SQLite for now). Frontend has some vanilla
 ## What is not there yet
 
 - Habit progress tracking
-- Soft delete by using is_active column in habits table
+- Soft delete by using `is_active` column in habits table
 - Viewing habit details
 - Account management
 - Some security stuff
@@ -22,13 +22,9 @@ It's built with Flask and SQLAlchemy (SQLite for now). Frontend has some vanilla
 
 ## What you need to run it
 
-- Python 3.8+ obviously
-- Dependencies (easy installation using requirements.txt)
+- Python 3.8+ 
+- Dependencies (easy installation using requirements.txt - see Usage):
 
-
-```bash
-pip install -r requirements.txt
-```
 
 ## Usage
 
@@ -38,18 +34,25 @@ pip install -r requirements.txt
    git clone https://github.com/pancake-dave/habitcakes.git
    cd habitcakes
    ```
+2. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-2. **Set up the database:**
+3. **Set up the database:**
 
    By default, the app uses SQLite. To initialize the database, run:
 
    ```bash
+   flask db init
+   flask db migrate
    flask db upgrade
    ```
 It also might not be needed since for the time being I push the migrations and instance to the repo (tables filled with test values).
 
-3. **Run the app:**
+4. **Run the app:**
 
+    Go to /habitcakesapp and run this command:
    ```bash
    flask run
    ```
