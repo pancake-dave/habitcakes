@@ -3,6 +3,9 @@
 **HabitCakes** is a simple web application for tracking and managing your habits. It's a project I made for my OOP course, but I'm plan to work on it in the future.
 It's built with Flask and SQLAlchemy (SQLite for now). Frontend has some vanilla JS code doing its thing.
 
+**To test the app visit [habitcakes on render!](https://habitcakes.onrender.com) But take note that it's only a demo version and creating new accounts is unavailable.**
+There is one testing account available - ask me directly for login credentials if you wanna see the app in action!
+
 ## Features
 
 - Add new habits with a title and description
