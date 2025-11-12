@@ -50,14 +50,18 @@ It's built with Flask and SQLAlchemy (SQLite for now). Frontend has some vanilla
    ```
 It also might not be needed since for the time being I push the migrations and instance to the repo (tables filled with test values).
 
-4. **Run the app:**
+4. **Create .env in the root of the project:**
+
+And put ```SECRET_KEY=your_super_secret_key``` there. (it's local only anyways)
+
+5. **Run the app:**
 
     Go to /habitcakesapp and run this command:
    ```bash
    flask run
    ```
 
-4. **Open your browser:**
+6. **Open your browser:**
 
    Everything's default, so visit [http://localhost:5000](http://localhost:5000)
 

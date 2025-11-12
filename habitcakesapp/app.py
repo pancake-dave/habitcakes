@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+
 # modules imports
 from flask import Flask, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -5,13 +8,15 @@ from flask_migrate import Migrate, migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 
+load_dotenv()
+
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 
 def create_app():
     app = Flask(__name__, template_folder='templates')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./habitcakes.db'
-    app.secret_key = 'CHANGE THIS BEFORE DEPLOYING' # should be something secure in prod
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
     db.init_app(app)
     bcrypt.init_app(app)
