@@ -21,6 +21,7 @@ There is one testing account available - ask me directly for login credentials i
 - Viewing habit details
 - Account management
 - Some security stuff
+- Responsiveness (for now the front-end is made for big screens only)
 
 
 ## What you need to run it
