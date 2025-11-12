@@ -1,0 +1,13 @@
+{% extends "index_base.html" %}
+{% block title %}Habitcakess - załóż nowe konto{% endblock %}
+
+{% block content %}
+
+    <section class="section-forms">
+    <div class="signup__box form__box">
+        <img class="main__logo form__logo" src="{{ url_for('static', filename='img/logo_main.svg') }}" alt="Habitcakes app logo">
+        <p class="demo_description">To wersja demonstracyjna – rejestracja nowych kont jest wyłączona, więc możesz zalogować się, korzystając z podanych w mailu danych :)</p>
+        <a class="demo_signup_link" href="{{ url_for('userbase.login') }}">Przejdź do strony logowania</a>
+    </div>
+    </section>
+{% endblock %}

@@ -26,7 +26,8 @@
             <input class="signup__form--input" type="text" name="name" placeholder="Nazwa użytkownika" required="required">
             <input class="signup__form--input" type="email" name="email" placeholder="Adres e-mail" required="required">
             <input class="signup__form--input" type="password" name="password" placeholder="Hasło" required="required">
-            <input class="signup__form--button" type="submit" value="Załóż konto">
+{#            <input class="signup__form--button" type="submit" value="Załóż konto">#}
+            <a class="signup__form--button demo_anchor" href="{{ url_for('userbase.info') }}">Załóż konto</a>
         </form>
         <a class="signup__link" href="{{ url_for('userbase.login') }}">
                 Lub przejdź do strony logowania

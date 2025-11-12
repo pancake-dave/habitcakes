@@ -153,6 +153,34 @@ body {
 
 
 // Signup and login page
+.demo_anchor {
+  text-decoration: none;
+  color: $main-color
+}
+.demo_description {
+  cursor: default;
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 2rem;
+}
+
+.demo_signup_link {
+  text-decoration: none;
+  color: $main-color;
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  border: 2px solid $main-color;
+  border-radius: 5px;
+  background-color: $contrast-secondary;
+  cursor: pointer;
+  transition: background-color .2s, color .2s;
+    &:hover {
+      background-color: $main-color;
+      color: $contrast-secondary;
+    }
+}
+
 .signup {
   &__box {
     height: auto;

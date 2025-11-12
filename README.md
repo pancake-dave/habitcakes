@@ -65,7 +65,6 @@ It also might not be needed since for the time being I push the migrations and i
 
 - Code is organized using Flask blueprints and SQLAlchemy models.
 - Alembic is used for database migrations (sometimes it freaks out a little, but usually works well)
-- OOP and design patterns are demonstrated in the `oop_examples/` directory for educational purposes - it's my OOP course final project.
 
 
 ## License
